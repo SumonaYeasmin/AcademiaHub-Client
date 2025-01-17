@@ -1,11 +1,113 @@
-import React from 'react';
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+// import { AuthContext } from "../../../provider/AuthProvider";
 
-const NavBar = () => {
+
+const Navbar = () => {
+    //    const {user} = useContext(AuthContext)
+
+    // const handleLogOut = () => {
+    //     userLogOut()
+    //         .then(() => {
+    //             toast.success("User Logout Successful.");
+    //         })
+    //         .catch(error => {
+    //             toast.error(error.code);
+    //         })
+    // }
+
+    const links = (
+        <div className="lg:flex gap-3 text-base md:text-lg lg:text-sm 2xl:text-lg font-semibold">
+            <li>
+                <NavLink to="/" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Home</NavLink>
+            </li>
+            <li>
+                <NavLink to="/allClasses" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>All Classes</NavLink>
+            </li>
+            <li>
+                <NavLink to="/teachOnAcademiaHub" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Teach On AcademiaHub</NavLink>
+            </li>
+            <li>
+                <NavLink to="/signIn" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Sign In</NavLink>
+            </li>
+        </div>
+    );
+
     return (
-        <div>
-            navbar
+
+        <div className="sticky top-0 z-50 backdrop-blur-md bg-opacity-50 border-b">
+            <div className="navbar  container mx-auto">
+                <div className="navbar-start z-50">
+                    <div className="dropdown">
+                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
+                        </div>
+                        <ul
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            {links}
+                        </ul>
+                    </div>
+                    <a className="btn -ml-5 btn-ghost text-2xl md:text-3xl">AcademiaHub</a>
+                </div>
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal">
+                        {links}
+                    </ul>
+                </div>
+                <div className="navbar-end z-50">
+                    <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+
+                                <img
+                                    data-tooltip-id="my-tooltip-1"
+                                    alt="Profile"
+                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                />
+
+                            </div>
+
+                        </div>
+                        <ul
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 shadow">
+                            <p className="px-4 py-2 text-gray-700 font-bold cursor-default">
+                                userName
+                            </p>
+                            <li>
+                                <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Dashboard</NavLink>
+                            </li>
+                            <button className="btn md:text-lg  bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Log Out</button>
+                        </ul>
+                    </div>
+                    {/* <Tooltip
+                        id="my-tooltip-1"
+                        place="bottom"
+                        variant="info"
+                        content='Anonymous User'
+                        className="z-50"
+                    />
+                  
+                            <button  className="btn text-sm md:text-lg px-3 sm:px-4 py-2 bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Log Out</button>
+                            : */}
+                    {/* <Link to="/login" className="text-sm md:text-lg btn px-3 sm:px-4 py-2 bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Login</Link> */}
+
+                </div>
+            </div>
         </div>
     );
 };
 
-export default NavBar;
+export default Navbar;
