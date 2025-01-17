@@ -3,7 +3,7 @@ import {
    
   } from "react-router-dom";
 import MainLayouts from "../layouts/MainLayouts";
-import Home from "../pages/Home/Home";
+import Home from "../pages/Home/Home/Home";
 import AllClasses from "../pages/AllClasses/AllClasses";
 import TeachOnAcademiaHub from "../pages/TeachOnAcademiaHub/TeachOnAcademiaHub";
 import Dashboard from "../layouts/Dashboard";
