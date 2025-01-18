@@ -74,7 +74,13 @@ const Navbar = () => {
                             {links}
                         </ul>
                     </div>
-                    <a className="btn -ml-5 btn-ghost text-2xl md:text-3xl">AcademiaHub</a>
+                    <div className="flex gap-2 items-center">
+                        <img
+                            alt="Tailwind CSS Navbar component" className="rounded-md w-10 -ml-3 md:-ml-0 "
+                            src="https://i.ibb.co.com/0yM92pv/299519412-405499358350836-446553208076966245-n.jpg" />
+                            <p className="text-xl md:text-3xl">AcademiaHub</p>
+                    </div>
+                    
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal">
@@ -102,14 +108,14 @@ const Navbar = () => {
                                 </div>
                                 <ul
                                     tabIndex={0}
-                                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 shadow">
+                                    className="menu md:text-lg dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 shadow">
                                     <p className="px-4 py-2 text-gray-700 font-bold cursor-default">
                                         {user?.displayName || 'Anonymous User'}
                                     </p>
                                     <li>
-                                        <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Dashboard</NavLink>
+                                        <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Dashboard</NavLink>
                                     </li>
-                                    <button onClick={handleLogOut} className="btn md:text-lg  bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Log Out</button>
+                                    <button onClick={handleLogOut} className="py-1 my-1  bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Log out</button>
                                 </ul>
                             </div>
                             :

@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 
 const Banner = () => {
     return (
-        <div className="my-16 container mx-auto">
+        <div className="my-16 container mx-auto p-2">
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 navigation
@@ -35,7 +35,7 @@ const Banner = () => {
                 <SwiperSlide>
                     <div className="relative h-[300px] md:h-[450px] xl:h-[550px] flex items-center justify-center ">
                         <img
-                            src="https://i.ibb.co.com/vLp2TCG/16-courses-in-school-administration-and-management.webp"
+                            src="https://i.ibb.co.com/WcffqKR/Benefits-of-studying-online.jpg"
                             className="w-full h-full object-cover brightness-90"
                         />
                         
@@ -70,26 +70,5 @@ const Banner = () => {
 
 export default Banner;
 
-
-
-
-
-        // <Carousel>
-        //     {/* <div className='h-[600px] object-cover'> */}
-        //     <div className='h-[600px] object-cover'>
-        //         <img src="https://i.ibb.co.com/vLp2TCG/16-courses-in-school-administration-and-management.webp" />
-               
-        //     </div>
-        //     <div>
-        //         <img src="https://i.ibb.co.com/zx13ww6/360-F-981581247-2-ARc766z3ep-COz-Ijb-Ub-Xna-IG0v-JQIpn6.jpg" />
-                
-        //     </div>
-        //     <div>
-        //         <img src="https://i.ibb.co.com/7NCrG3G/education-management-system-in-bangladesh-bidyaan.jpg" />
-                
-        //     </div>
-        //     <div>
-        //         <img src="https://i.ibb.co.com/7NCrG3G/education-management-system-in-bangladesh-bidyaan.jpg" />
-                
-        //     </div>
+        
           
