@@ -3,30 +3,47 @@
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
+import { AuthContext } from '../../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 // import { toast } from 'react-toastify';
 // import { Helmet } from 'react-helmet';
 
 const Login = () => {
-    // const { loginUser, loginWithGoogle } = useContext(AuthContext);
+    const { loginUser, loginWithGoogle } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
-        // e.preventDefault();
-        // const email = e.target.email.value;
-        // const password = e.target.password.value;
-        // // console.log(email, password);
-        // loginUser(email, password)
-        //     .then(result => {
-        //         // console.log(result.user);
-        //         toast.success("Logged in with Google successfully!");
-        //         navigate(location?.state ? location.state : '/');
-        //     })
-        //     .catch(error => {
-        //         // console.log(error.message);
-        //         toast.error(error.message)
-        //     })
+    const handleLogin = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email, password);
+       loginUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                Swal.fire({
+                    icon: 'success',
+                    title: "Successfully Login",
+                    text: 'User login successfully.',
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  navigate(location?.state ? location?.state : '/');
+            })
+            .catch(error => {
+                console.log(error.code);
+                Swal.fire({
+                    position: "top",
+                    icon: "error",
+                    title: `${error.code}`,
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                
+            })
     }
 
     const handleGoogleLogin = (e) => {
@@ -58,17 +75,15 @@ const Login = () => {
 
                 {/* Password Field  */}
                 <div>
-                    <label htmlFor="password" className="block text-gray-700">Password</label>
+                    <label htmlFor="password" className="block text-gray-700 ">Password</label>
                     <input type="password" name="password" id="password" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your password" required />
-                    <label className="label">
-                        <p className="label-text-alt link link-hover text-sm text-purple-600 hover:underline">Forgot password?</p>
-                    </label>
                 </div>
 
                 {/* Submit Button */}
-                <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                <button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
                 >Login </button>
                 <SocialLogin></SocialLogin>
+
             </form>
 
 

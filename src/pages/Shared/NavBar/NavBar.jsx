@@ -1,20 +1,37 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-// import { AuthContext } from "../../../provider/AuthProvider";
+import { AuthContext } from "../../../provider/AuthProvider";
+import Swal from "sweetalert2";
+import { Tooltip } from "react-tooltip";
+
 
 
 const Navbar = () => {
-    //    const {user} = useContext(AuthContext)
+    const { user, userLogOut } = useContext(AuthContext);
 
-    // const handleLogOut = () => {
-    //     userLogOut()
-    //         .then(() => {
-    //             toast.success("User Logout Successful.");
-    //         })
-    //         .catch(error => {
-    //             toast.error(error.code);
-    //         })
-    // }
+
+    const handleLogOut = () => {
+        userLogOut()
+            .then(() => {
+                Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: "User Logout Successful",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+
+            })
+            .catch(error => {
+                Swal.fire({
+                    position: "top",
+                    icon: "error",
+                    title: `${error.code}`,
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            })
+    }
 
     const links = (
         <div className="lg:flex gap-3 text-base md:text-lg lg:text-sm 2xl:text-lg font-semibold">
@@ -65,44 +82,39 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end z-50">
-                    <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
+                    {
+                        user ?
+                            <div className="dropdown dropdown-end">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-10 rounded-full">
 
-                                <img
-                                    data-tooltip-id="my-tooltip-1"
-                                    alt="Profile"
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                />
+                                        {
+                                            user && <img
+                                                data-tooltip-id="my-tooltip-1"
+                                                alt="Profile"
+                                                src={
+                                                    user?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                                } />
+                                        }
 
+                                    </div>
+
+                                </div>
+                                <ul
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 shadow">
+                                    <p className="px-4 py-2 text-gray-700 font-bold cursor-default">
+                                        {user?.displayName || 'Anonymous User'}
+                                    </p>
+                                    <li>
+                                        <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Dashboard</NavLink>
+                                    </li>
+                                    <button onClick={handleLogOut} className="btn md:text-lg  bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Log Out</button>
+                                </ul>
                             </div>
-
-                        </div>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 shadow">
-                            <p className="px-4 py-2 text-gray-700 font-bold cursor-default">
-                                userName
-                            </p>
-                            <li>
-                                <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Dashboard</NavLink>
-                            </li>
-                            <button className="btn md:text-lg  bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Log Out</button>
-                        </ul>
-                    </div>
-                    {/* <Tooltip
-                        id="my-tooltip-1"
-                        place="bottom"
-                        variant="info"
-                        content='Anonymous User'
-                        className="z-50"
-                    />
-                  
-                            <button  className="btn text-sm md:text-lg px-3 sm:px-4 py-2 bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Log Out</button>
-                            : */}
-                    <Link to="/signIn" className="text-sm md:text-lg btn px-3 sm:px-4 py-2 bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Sign In</Link>
-                    
-
+                            :
+                            <Link to="/signIn" className="text-sm md:text-lg btn px-3 sm:px-4 py-2 bg-gradient-to-r from-purple-400 to-indigo-400 hover:from-purple-600 hover:to-indigo-600 rounded-lg hover:text-white transform transition duration-300 font-semibold">Sign In</Link>
+                    }
                 </div>
             </div>
         </div>
