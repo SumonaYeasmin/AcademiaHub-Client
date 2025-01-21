@@ -2,19 +2,11 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
-import { useQuery } from '@tanstack/react-query';
+
 
 function TeachOnAcademiaHub() {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-
-    const { data: users = [], refetch } = useQuery({
-        queryKey: ['classes'],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/classes');
-            return res.data;
-        }
-    })
 
     const handleSubmit = async (e) => {
         e.preventDefault();
