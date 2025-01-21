@@ -20,13 +20,13 @@ const Sidebar = () => {
             <div className='bg-teal-200 text-gray-800 flex justify-between md:hidden'>
                 <div>
                     <div className='block cursor-pointer p-2 font-bold'>
-                        <Link to='/' className='flex items-center'>
+                        <Link to='/' className='flex items-center gap-3'>
                             <img
-                                className='w-14'
-                                src='https://i.ibb.co.com/SRbh4WY/Pharma-removebg-preview.png'
+                                className='w-12'
+                                src='https://i.ibb.co.com/0yM92pv/299519412-405499358350836-446553208076966245-n.jpg'
                                 alt='logo'
                             />
-                            <h1 className="text-3xl -mt-2 font-bold bg-gradient-to-r from-teal-700 to-teal-600 text-transparent bg-clip-text">PharmaHub</h1>
+                            <h1 className="text-[27px] font-bold bg-gradient-to-r from-teal-700 to-teal-600 text-transparent bg-clip-text">AcademiaHub</h1>
                         </Link>
                     </div>
                 </div>

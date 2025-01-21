@@ -16,11 +16,11 @@ const TeacherRequest = () => {
 
   return (
 
-    <div className="overflow-x-auto">
-      <table className="table">
+    <div className="overflow-x-auto ">
+      <table className="table text-base">
         {/* head */}
         <thead>
-          <tr>
+          <tr className="text-lg">
 
             <th>SI No</th>
             <th>Name</th>

@@ -25,17 +25,17 @@ const AllClass = () => {
     return (
 
         <div>
-            <h2 className="text-3xl font-bold text-center mb-6">All Class List</h2>
+            <h2 className=" text-2xl md:text-3xl font-bold text-center mb-6">All Class List</h2>
 
             <div className="overflow-x-auto">
-                <table className="table w-full text-base">
+                <table className="table w-full text-sm md:text-base">
                     <thead>
-                        <tr className="text-lg">
+                        <tr className=" text-base md:text-lg">
                             <th>SI No</th>
                             <th>Class Title</th>
                             <th>Description</th>
                             <th>Instructor Email</th>
-                            <th className="pl-10">Actions</th>
+                            <th className=" pl-5 md:pl-10">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,10 +43,10 @@ const AllClass = () => {
                             <tr key={classItem._id}>
                                 <th>{index + 1}</th>
                                 <td>{classItem.title}</td>
-                                <td>{classItem.description.slice(0, 100)}</td>
+                                <td>{classItem.description}</td>
                                 <td>{classItem.email}</td>
                                 <td>
-                                    <div className="flex  items-center justify-around gap-2">
+                                    <div className="flex  items-center justify-around gap-2 ">
                                         <button
                                             onClick={() => handleApprove(classItem._id)}
                                             className="btn btn-success"

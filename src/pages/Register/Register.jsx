@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
 import { AuthContext } from '../../provider/AuthProvider';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 
 // import { Helmet } from 'react-helmet';
@@ -13,9 +14,12 @@ const Register = () => {
     const location = useLocation();
     const { creatUser, updateProfileInfo } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
+    const axiosPublic = useAxiosPublic();
 
     const handleRegister = (e) => {
         e.preventDefault();
+
+        const form = e.target
         const name = e.target.name.value;
         const photoUrl = e.target.photoUrl.value;
         const email = e.target.email.value;
@@ -32,19 +36,42 @@ const Register = () => {
         creatUser(email, password)
             .then(result => {
                 console.log(result.user);
-                Swal.fire({
-                    position: "top",
-                    icon: "success",
-                    title: "Registration Successfully",
-                    text: 'Wellcome, Your account has been created',
-                    showConfirmButton: false,
-                    timer: 2000,
-                });
-                updateProfileInfo(name, photoUrl);
-                navigate(location?.state ? location?.state : '/');
+
+                updateProfileInfo(name, photoUrl)
+
+                    .then(() => {
+                        console.log("user profile info updated")
+
+                        // creat user in the database
+                        const userInfo = {
+                            name: name,
+                            email: email,
+                            photoURL:photoUrl,
+                            role: "Student"
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log("user added to the database");
+                                    form.reset();
+                                    Swal.fire({
+                                        position: "top",
+                                        icon: "success",
+                                        title: "Registration Successfully",
+                                        text: 'Wellcome, Your account has been created',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                    });
+                                    navigate(location?.state ? location?.state : '/');
+                                }
+                            })
+
+                    })
+
+
             })
             .catch(error => {
-                console.log(error.code);
+                // console.log(error.code);
                 Swal.fire({
                     position: "top",
                     icon: "error",
