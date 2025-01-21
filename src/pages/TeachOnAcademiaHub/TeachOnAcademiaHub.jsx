@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 function TeachOnAcademiaHub() {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const form =e.target;
+        const form = e.target;
         const name = e.target.name.value;
         const email = e.target.email.value;
         const experience = e.target.experience.value;
@@ -18,8 +23,22 @@ function TeachOnAcademiaHub() {
         const category = e.target.category.value;
         // console.log(name,email,experience,title,category);
 
+
+        const image = e.target.image.files[0];
+        console.log(image);
+        const imageFile = { image };
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+        console.log(res.data);
+        const photoURL = res.data.data.display_url;
+        console.log(photoURL);
+
         const teacherInfo = {
             name,
+           photoURL,
             email,
             experience,
             title,
@@ -28,11 +47,11 @@ function TeachOnAcademiaHub() {
         }
         // console.log(teacherInfo);
 
-        const res = await axiosSecure.post('/teacher-requests', teacherInfo)
-        // console.log(res.data);
+        const response = await axiosSecure.post('/teacher-requests', teacherInfo)
+        console.log(response.data);
         try {
-            if (res.data.insertedId) {
-                // console.log("Added mongoDB");
+            if (response.data.insertedId) {
+                console.log("Added mongoDB");
                 Swal.fire({
                     position: "top",
                     icon: "success",
@@ -41,7 +60,7 @@ function TeachOnAcademiaHub() {
                     timer: 2000,
                 });
                 form.reset()
-                
+
             }
         }
         catch {
@@ -63,6 +82,10 @@ function TeachOnAcademiaHub() {
                 <label className="block text-gray-700 font-bold mb-2">Name</label>
                 <input defaultValue={user?.displayName} readOnly name='name' id='name' className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
                 />
+            </div>
+            <div className="mb-4">
+                <label htmlFor="image" className="block text-gray-700 font-medium mb-2">Image</label>
+                <input type="file" id="image" name="image" accept="image/*" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
             </div>
 
             <div className="mb-4">
