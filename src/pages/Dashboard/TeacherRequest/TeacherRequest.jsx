@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const TeacherRequest = () => {
@@ -14,6 +15,22 @@ const TeacherRequest = () => {
     }
   });
 
+  // handle approve btn
+  const handleApprove = async (teacherId) => {
+    try {
+      const res = await axiosSecure.patch(`/teachers/approve/${teacherId}`, {
+        status: "accepted",
+        role: "teacher",
+      });
+      if (res.data.modifiedCount > 0) {
+        Swal.fire("Success!", "Teacher approved successfully!", "success");
+        refetch(); 
+      }
+    } catch  {
+      console.log(error.code);
+      Swal.fire("Error!", "Failed to approve teacher!", "error");
+    }
+  }
   return (
 
     <div className="overflow-x-auto ">
@@ -53,9 +70,9 @@ const TeacherRequest = () => {
               <td>{teacher.experience}</td>
               <td>{teacher.title}</td>
              <td>{teacher.category}</td>
-              <td>{teacher.status}</td>
+              <td><button className="btn">{teacher.status}</button></td>
               <th className="flex gap-1">
-                <button className="btn bg-green-400 ">approves</button>
+                <button onClick={()=> handleApprove(teacher._id)} className="btn bg-green-400 ">approves</button>
                 <button className="btn bg-red-500 ">Reject</button>
                
               </th>
