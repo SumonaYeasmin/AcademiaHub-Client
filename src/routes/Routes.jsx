@@ -14,6 +14,7 @@ import Users from "../pages/Dashboard/Users/Users";
 import AllClass from "../pages/Dashboard/AllClasses/AllClass";
 import Profile from "../pages/Dashboard/Profile/Profile";
 import AddClass from "../pages/Dashboard/AddClass/AddClass";
+import ClassDetails from "../pages/AllClasses/ClassDetails/ClassDetails";
 
  const router = createBrowserRouter([
     {
@@ -29,8 +30,8 @@ import AddClass from "../pages/Dashboard/AddClass/AddClass";
             element: <AllClasses></AllClasses>,
           },
           {
-            path: "/allClasses",
-            element: <AllClasses></AllClasses>,
+            path: "/classes/:id",
+            element: <ClassDetails></ClassDetails>,
           },
           {
             path: "/teachOnAcademiaHub",
