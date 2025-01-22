@@ -23,14 +23,58 @@ const TeacherRequest = () => {
         role: "teacher",
       });
       if (res.data.modifiedCount > 0) {
-        Swal.fire("Success!", "Teacher approved successfully!", "success");
-        refetch(); 
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Teacher approved successfully!",
+          showConfirmButton: false,
+          timer: 2000
+        });
+        refetch();
       }
-    } catch  {
-      console.log(error.code);
-      Swal.fire("Error!", "Failed to approve teacher!", "error");
+    } catch {
+      // console.log(error.code);
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: "Failed to Approve teacher!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   }
+
+  // handle rejecte btn
+  const handleReject = async (teacherId) => {
+    try {
+      const res = await axiosSecure.patch(`/teachers/reject/${teacherId}`, {
+        status: "rejected",
+      });
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Rejected! Teacher request has been rejected!",
+          showConfirmButton: false,
+          timer: 2000
+        });
+        refetch();
+      }
+    } catch {
+      // console.log(error.code);
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: "Failed to reject teacher request!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+
+    }
+  };
+
+
+
   return (
 
     <div className="overflow-x-auto ">
@@ -52,8 +96,8 @@ const TeacherRequest = () => {
         </thead>
         <tbody>
           {
-            teachers.map((teacher, index) =>  <tr key={teacher._id}>
-              
+            teachers.map((teacher, index) => <tr key={teacher._id}>
+
               <th>{index + 1}</th>
               <td>{teacher.name}</td>
               <td>
@@ -69,19 +113,28 @@ const TeacherRequest = () => {
               </td>
               <td>{teacher.experience}</td>
               <td>{teacher.title}</td>
-             <td>{teacher.category}</td>
+              <td>{teacher.category}</td>
               <td><button className="btn">{teacher.status}</button></td>
               <th className="flex gap-1">
-                <button onClick={()=> handleApprove(teacher._id)} className="btn bg-green-400 ">approves</button>
-                <button className="btn bg-red-500 ">Reject</button>
-               
+                <button
+                  className="btn bg-green-400"
+                  onClick={() => handleApprove(teacher._id)}
+                  disabled={teacher.status === "rejected"}>
+                  Approve
+                </button>
+                <button
+                  className="btn bg-red-500"
+                  onClick={() => handleReject(teacher._id)}
+                  disabled={teacher.status === "rejected"}>
+                  Reject
+                </button>
               </th>
             </tr>)
           }
-        
+
 
         </tbody>
-   
+
       </table>
     </div>
   );
