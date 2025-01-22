@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -8,6 +9,8 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const AddClass = () => {
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
+    // console.log(user);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,7 +41,8 @@ const AddClass = () => {
             price,
             description,
             photoURL,
-            status: 'pending'
+            status: 'pending',
+            totalEnrolment: 0
         }
         // console.log(addClassInfo);
 
@@ -74,7 +78,7 @@ const AddClass = () => {
     return (
         <div className="bg-gray-100 flex items-center justify-center min-h-screen">
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Add a New className</h2>
+                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Add a New class</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="title" className="block text-gray-700 font-medium mb-2">Title</label>
@@ -82,15 +86,16 @@ const AddClass = () => {
                     </div>
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Name</label>
-                        <input type="text" id="name" name="name" value="Teacher Name" className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readOnly />
+                        <input type="text" id="name" name="name" defaultValue={user?.displayName} className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readOnly />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
-                        <input type="email" id="email" name="email" value="teacher@example.com" className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readOnly />
+                        <input type="email" id="email" name="email" defaultValue={user?.email} className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readOnly />
                     </div>
+                    
                     <div className="mb-4">
                         <label htmlFor="price" className="block text-gray-700 font-medium mb-2">Price</label>
-                        <input type="number" id="price" name="price" placeholder="Enter class price" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+                        <input type="number" id="price" name="price" placeholder="Enter class price" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" min='1' required />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="description" className="block text-gray-700 font-medium mb-2">Description</label>

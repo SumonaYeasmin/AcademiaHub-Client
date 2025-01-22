@@ -29,6 +29,10 @@ import AddClass from "../pages/Dashboard/AddClass/AddClass";
             element: <AllClasses></AllClasses>,
           },
           {
+            path: "/allClasses",
+            element: <AllClasses></AllClasses>,
+          },
+          {
             path: "/teachOnAcademiaHub",
             element: <TeachOnAcademiaHub></TeachOnAcademiaHub>,
             

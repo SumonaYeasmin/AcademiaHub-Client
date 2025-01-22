@@ -15,23 +15,22 @@ const AllClasses = () => {
   });
 
   return (
-    <div className="p-5">
+    <div className="p-5 container mx-auto">
       <h1 className="text-2xl font-bold mb-4">Total Classes: {classes.length}</h1>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
         {classes.map((classItem) => (
           <div
             key={classItem._id}
-            className=" bg-white rounded-lg shadow-lg overflow-hidden"
-          >
+            className="rounded-lg shadow-lg ">
             <img
-              src={classItem.image || "https://via.placeholder.com/350x200"}
+              src={classItem.photoURL}
               alt="Class Image"
-              className="w-full h-48 object-cover"
+              className="w-full object-cover rounded-lg"
             />
             <div className="p-5">
               <h2 className="text-xl font-bold text-gray-800 mb-2">{classItem.title}</h2>
               <p className="text-sm text-gray-600 mb-2">
-                Posted by: <span className="font-medium">{classItem.postedBy}</span>
+                Posted by: <span className="font-medium">{classItem.name}</span>
               </p>
               <p className="text-lg font-semibold text-blue-600 mb-2">
                 Price: ${classItem.price}
