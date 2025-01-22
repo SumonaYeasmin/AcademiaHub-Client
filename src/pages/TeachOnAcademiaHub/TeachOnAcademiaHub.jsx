@@ -25,14 +25,14 @@ function TeachOnAcademiaHub() {
 
 
         const image = e.target.image.files[0];
-        console.log(image);
+        // console.log(image);
         const imageFile = { image };
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         });
-        console.log(res.data);
+        // console.log(res.data);
         const photoURL = res.data.data.display_url;
         console.log(photoURL);
 
@@ -48,7 +48,7 @@ function TeachOnAcademiaHub() {
         // console.log(teacherInfo);
 
         const response = await axiosSecure.post('/teacher-requests', teacherInfo)
-        console.log(response.data);
+        // console.log(response.data);
         try {
             if (response.data.insertedId) {
                 console.log("Added mongoDB");
