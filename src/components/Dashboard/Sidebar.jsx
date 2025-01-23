@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { AiOutlineBars } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-// import AdminMenu from './Menu/AdminMenu';
+import AdminMenu from './Menu/AdminMenu';
+import useRole from '../../hooks/useRole';
 import TeacherMenu from './Menu/TeacherMenu';
 
 const Sidebar = () => {
     const [isActive, setActive] = useState(true);
-    // const role = 'admin'
-    const role = 'teacher'
+    const [role] = useRole();
+    console.log(role);
+    // const role = 'teacher'
 
     // Sidebar Responsive Handler
     const handleToggle = () => {
@@ -60,8 +62,8 @@ const Sidebar = () => {
 
                     <div className='flex flex-col justify-between flex-1 mt-6'>
                         <nav>
-                            {/* {role === 'admin' && <AdminMenu />} */}
-                            {role === 'teacher' && <TeacherMenu />}
+                            {role === 'Admin' && <AdminMenu />}
+                            {role === 'Teacher' && <TeacherMenu />}
                         </nav>
                     </div>
                 </div>
