@@ -7,7 +7,7 @@ import { auth } from "../firebase/firebase.init";
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    console.log(user);
+    // console.log(user);
     const [loading, setLoading] = useState(true);
 
     // Creat a new user or Registration
@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            console.log('current user', currentUser);
+            // console.log('current user', currentUser);
             setLoading(false);
 
         });
