@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AllClasses = () => {
     const axiosSecure = useAxiosSecure();
-    const navigate = useNavigate()
+
 
     const { data: classes = [], refetch } = useQuery({
         queryKey: ["classes"],

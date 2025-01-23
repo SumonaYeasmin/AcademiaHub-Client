@@ -12,10 +12,12 @@ import Register from "../pages/Register/Register";
 import TeacherRequest from "../pages/Dashboard/TeacherRequest/TeacherRequest";
 import Users from "../pages/Dashboard/Users/Users";
 import AllClass from "../pages/Dashboard/AllClasses/AllClass";
-import Profile from "../pages/Dashboard/Profile/Profile";
+
 import AddClass from "../pages/Dashboard/AddClass/AddClass";
 import ClassDetails from "../pages/AllClasses/ClassDetails/ClassDetails";
 import MyClass from "../pages/Dashboard/MyClass/MyClass";
+import MyClassDetails from "../pages/Dashboard/MyClass/MyClassDetails/MyClassDetails";
+import Profile from "../pages/Shared/Profile/Profile";
 
  const router = createBrowserRouter([
     {
@@ -66,6 +68,8 @@ import MyClass from "../pages/Dashboard/MyClass/MyClass";
             path: '/dashboard/all-class',
             element: <AllClass />
           },
+
+
           {
             path: '/dashboard/profile',
             element: <Profile></Profile>
@@ -77,6 +81,10 @@ import MyClass from "../pages/Dashboard/MyClass/MyClass";
           {
             path: '/dashboard/my-class',
             element: <MyClass></MyClass>
+          },
+          {
+            path: '/dashboard/my-class/:id',
+            element: <MyClassDetails></MyClassDetails>
           },
         ]
     }
