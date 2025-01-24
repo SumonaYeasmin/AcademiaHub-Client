@@ -5,15 +5,16 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-function TeachOnAcademiaHub() {
+const TeachOnAcademiaHub =()=> {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
-
+  const navigate = useNavigate()
 
   const { data: userData = {}, refetch } = useQuery({
     queryKey: ['users', user?.email],
@@ -65,6 +66,7 @@ function TeachOnAcademiaHub() {
           timer: 2000,
         });
         form.reset();
+        navigate(location?.state ? location?.state : '/');
       }
     } catch (error) {
       Swal.fire({

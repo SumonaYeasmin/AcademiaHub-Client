@@ -41,9 +41,14 @@ const Navbar = () => {
             <li>
                 <NavLink to="/allClasses" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>All Classes</NavLink>
             </li>
-            <li>
-                <NavLink to="/teachOnAcademiaHub" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Teach On AcademiaHub</NavLink>
-            </li>
+            {
+                user &&
+                    <li>
+                        <NavLink to="/teachOnAcademiaHub" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Teach On AcademiaHub</NavLink>
+                    </li>
+            }
+
+
 
         </div>
     );
@@ -78,9 +83,9 @@ const Navbar = () => {
                         <img
                             alt="Tailwind CSS Navbar component" className="rounded-md w-10 -ml-3 md:-ml-0 "
                             src="https://i.ibb.co.com/0yM92pv/299519412-405499358350836-446553208076966245-n.jpg" />
-                            <p className="text-xl md:text-3xl">AcademiaHub</p>
+                        <p className="text-xl md:text-3xl">AcademiaHub</p>
                     </div>
-                    
+
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal">

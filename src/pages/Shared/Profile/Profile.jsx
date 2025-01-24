@@ -10,37 +10,34 @@ const Profile = () => {
         queryKey: ["users", user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/${user?.email}`);
-            console.log(res.data);
+            // console.log(res.data);
             return res.data;
         },
     });
 
 
-
     return (
             <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <div className="w-full max-w-sm p-5">
-
-                    {users.map((user) => (
-
+                <div className="w-full max-w-screen-sm p-5">
+                    
                         <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col items-center p-6">
                             <img
                                 className="w-28 h-28 rounded-full object-cover mb-4"
-                                src={user.photoURL}
+                                src={users.photoURL}
                                 alt="User"
                             />
                             <div className="text-center">
-                                <h2 className="text-2xl font-bold mb-2"> {user.name}</h2>
-                                <p className="text-gray-700 mb-2"><span className='font-medium'>Email: </span>{user.email}</p>
-                                <p className="text-gray-500 mb-2"><span className='font-medium'>Role: </span> {user.role}</p>
+                                <h2 className="text-2xl font-bold mb-2"> {users.name}</h2>
+                                <p className="text-gray-700 mb-2"><span className='font-medium'>Email: </span>{users.email}</p>
+                                <p className="text-gray-500 mb-2"><span className='font-medium'>Role: </span> {users.role}</p>
 
                             </div>
                         </div>
-                    ))}
+                  
 
                 </div>
             </div>
-
+            
     );
 };
 

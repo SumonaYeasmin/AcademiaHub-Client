@@ -18,6 +18,7 @@ import ClassDetails from "../pages/AllClasses/ClassDetails/ClassDetails";
 import MyClass from "../pages/Dashboard/MyClass/MyClass";
 import MyClassDetails from "../pages/Dashboard/MyClass/MyClassDetails/MyClassDetails";
 import Profile from "../pages/Shared/Profile/Profile";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
  const router = createBrowserRouter([
     {
@@ -38,7 +39,7 @@ import Profile from "../pages/Shared/Profile/Profile";
           },
           {
             path: "/teachOnAcademiaHub",
-            element: <TeachOnAcademiaHub></TeachOnAcademiaHub>,
+            element: <PrivateRoute><TeachOnAcademiaHub></TeachOnAcademiaHub></PrivateRoute> ,
             
           },
           {

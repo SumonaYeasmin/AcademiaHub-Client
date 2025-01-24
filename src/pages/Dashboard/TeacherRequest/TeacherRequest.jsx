@@ -24,7 +24,6 @@ const TeacherRequest = () => {
         role: "Teacher",
       });
       if (res.data.modifiedCount > 0) {
-        // const response = await axiosSecure.patch(`users/role/${id}`)
         Swal.fire({
           position: "top",
           icon: "success",
@@ -51,7 +50,7 @@ const TeacherRequest = () => {
   const handleReject = async (teacherId) => {
     try {
       const res = await axiosSecure.patch(`/teachers/reject/${teacherId}`, {
-        status: "rejected",
+        status: "Rejected",
       });
       if (res.data.modifiedCount > 0) {
         Swal.fire({
@@ -76,6 +75,32 @@ const TeacherRequest = () => {
     }
   };
 
+  // handle request to another btn
+  const handleRequestAgain = async (teacherId) => {
+    try {
+      const res = await axiosSecure.patch(`/teachers/request-again/${teacherId}`, {
+        status: "Pending",
+      });
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Status set to Pending!",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        refetch();
+      }
+    } catch {
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: "Failed to reset status!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  };
 
 
   return (
@@ -119,18 +144,29 @@ const TeacherRequest = () => {
               <td>{teacher.category}</td>
               <td><button className="btn">{teacher.status}</button></td>
               <th className="flex gap-1">
+
                 <button
-                  className="btn bg-green-400"
+                  className={`btn bg-green-400 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-65"
+                    }`}
                   onClick={() => handleApprove(teacher.email)}
-                  disabled={teacher.status === "rejected"}>
+                  disabled={teacher.status === "Rejected"}
+                >
                   Approve
                 </button>
                 <button
                   className="btn bg-red-500"
                   onClick={() => handleReject(teacher._id)}
-                  disabled={teacher.status === "rejected"}>
+                  disabled={teacher.status === "Rejected"}>
                   Reject
                 </button>
+                {teacher.status === "Rejected" && (
+                  <button
+                    className="btn bg-blue-400"
+                    onClick={() => handleRequestAgain(teacher._id)}
+                  >
+                    Request to Another
+                  </button>
+                )}
               </th>
             </tr>)
           }
@@ -140,7 +176,10 @@ const TeacherRequest = () => {
 
       </table>
     </div>
-  );
-};
 
-export default TeacherRequest;
+   
+
+  )
+      
+};
+      export default TeacherRequest;

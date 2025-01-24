@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -11,6 +12,7 @@ const AddClass = () => {
     const axiosSecure = useAxiosSecure();
     const {user} = useAuth();
     // console.log(user);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,7 +43,7 @@ const AddClass = () => {
             price,
             description,
             photoURL,
-            status: 'pending',
+            status: 'Pending',
             totalEnrolment: 0
         }
         // console.log(addClassInfo);
@@ -59,7 +61,7 @@ const AddClass = () => {
                     timer: 2000,
                 });
                 form.reset()
-
+                navigate('/dashboard/my-class');
             }
         }
         catch {
@@ -95,7 +97,7 @@ const AddClass = () => {
                     
                     <div className="mb-4">
                         <label htmlFor="price" className="block text-gray-700 font-medium mb-2">Price</label>
-                        <input type="number" id="price" name="price" placeholder="Enter class price" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" min='1' required />
+                        <input type="number" id="price" name="price" placeholder="Enter class price" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="description" className="block text-gray-700 font-medium mb-2">Description</label>
@@ -106,7 +108,9 @@ const AddClass = () => {
                         <input type="file" id="image" name="image" accept="image/*" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div className="text-center">
-                        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">Add className</button>
+                        
+                        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">Add class</button>
+                       
                     </div>
                 </form>
             </div>

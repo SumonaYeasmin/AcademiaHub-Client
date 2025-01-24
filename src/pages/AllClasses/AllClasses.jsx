@@ -11,7 +11,7 @@ const AllClasses = () => {
         queryFn: async () => {
             const res = await axiosSecure.get("/classes");
             const approvedClasses = res.data;
-            return approvedClasses.filter(classItem => classItem.status === 'accepted');
+            return approvedClasses.filter(classItem => classItem.status === 'Accepted');
 
         },
     });

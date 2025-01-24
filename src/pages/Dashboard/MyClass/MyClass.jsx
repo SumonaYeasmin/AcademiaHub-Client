@@ -99,7 +99,7 @@ const MyClass = () => {
                         <img
                             src={classItem.photoURL}
                             alt="Class"
-                            className="w-full object-cover rounded-lg mb-4"
+                            className="w-full h-48 object-cover rounded-lg mb-4"
                         />
                         <h2 className="text-xl font-semibold text-gray-800 mb-2">
                             {classItem.title}
@@ -137,13 +137,12 @@ const MyClass = () => {
                             </button>
                             <Link to={`/dashboard/my-class/${classItem._id}`}>
                                 <button
-                                    disabled={classItem.status === 'pending'}
-                                    className={`px-2 text-sm lg:text-base lg:px-2 py-2 rounded-md transition-all 
-        ${classItem.status === 'pending' ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600 text-white'}`}
-                                >
-                                    See Details
+                                    disabled={classItem.status !== 'Accepted'}
+                                    className={`px-2 text-sm lg:text-base lg:px-2 py-2 rounded-md transition-all ${classItem.status === 'Accepted'? 'bg-green-500 hover:bg-green-600 text-white': 'bg-gray-300 cursor-not-allowed'}`}
+                                >See Details
                                 </button>
                             </Link>
+
                         </div>
                     </div>
                 ))}
