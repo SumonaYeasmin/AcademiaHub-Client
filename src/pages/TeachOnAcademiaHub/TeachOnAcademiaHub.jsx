@@ -3,15 +3,22 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-const TeachOnAcademiaHub =()=> {
+const TeachOnAcademiaHub = () => {
+  const {
+    register, reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
   const { user } = useAuth();
+  const location = useLocation();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate()
@@ -20,20 +27,15 @@ const TeachOnAcademiaHub =()=> {
     queryKey: ['users', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/${user?.email}`);
-      console.log('response data', res.data);
+      // console.log('response data', res.data);
       return res.data;
     }
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const experience = form.experience.value;
-    const title = form.title.value;
-    const category = form.category.value;
-    const image = form.image.files[0];
+  const onSubmit = async (data) => {
+    const image = data.image[0];
+    // console.log(image);
+    // console.log('data is', data);
 
     try {
       // Upload the image
@@ -43,15 +45,16 @@ const TeachOnAcademiaHub =()=> {
         headers: { "content-type": "multipart/form-data" },
       });
       const photoURL = res.data.data.display_url;
+      // console.log(photoURL);
 
       // Create teacher request payload
       const teacherInfo = {
-        name,
-        photoURL,
-        email,
-        experience,
-        title,
-        category,
+        name: data.name,
+        photoURL: photoURL,
+        email: data.email,
+        experience: data.experience,
+        title: data.title,
+        category: data.category,
         status: "Pending",
       };
 
@@ -65,14 +68,16 @@ const TeachOnAcademiaHub =()=> {
           showConfirmButton: false,
           timer: 2000,
         });
-        form.reset();
+        reset();
         navigate(location?.state ? location?.state : '/');
       }
-    } catch (error) {
+    }
+    catch (error) {
+      // console.error("Error occurred:", error);
       Swal.fire({
         position: "top",
         icon: "error",
-        title: "Failed to submit request. Please try again later.",
+        title: error.response?.data?.message || "Failed to submit request. Please try again later.",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -81,21 +86,26 @@ const TeachOnAcademiaHub =()=> {
 
   return (
     <>
+      <Helmet>
+        <title>TeachOnAcademiaHub || AcademiaHub</title>
+      </Helmet>
       {userData.role === "Teacher" ? (
         <div className="flex justify-center items-center container mx-auto my-10 p-2">
+
           <div className="bg-white rounded-lg shadow-md p-8 max-w-md text-center">
+
             <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Congratulations! 
+              Congratulations!
             </h1>
             <p className="text-gray-600 mb-6">
-            We are excited to have you onboard as part of our esteemed educators' community.
-            Share your knowledge, inspire students, and make a difference in their learning journey!"
+              We are excited to have you onboard as part of our esteemed educators' community.
+              Share your knowledge, inspire students, and make a difference in their learning journey!"
             </p>
           </div>
         </div>
       ) : (
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md my-10"
         >
           <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
@@ -107,7 +117,7 @@ const TeachOnAcademiaHub =()=> {
             <input
               defaultValue={user?.displayName}
               readOnly
-              name="name"
+              {...register("name", { required: true })}
               id="name"
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
             />
@@ -123,11 +133,11 @@ const TeachOnAcademiaHub =()=> {
             <input
               type="file"
               id="image"
-              name="image"
+              {...register("image", { required: true })}
               accept="image/*"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+
+            />{errors.image && <span className="text-red-600">image is required</span>}
           </div>
 
           <div className="mb-4">
@@ -135,7 +145,7 @@ const TeachOnAcademiaHub =()=> {
             <input
               defaultValue={user?.email}
               readOnly
-              name="email"
+              {...register("email", { required: true })}
               id="email"
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
             />
@@ -145,10 +155,11 @@ const TeachOnAcademiaHub =()=> {
             <label className="block text-gray-700 font-bold mb-2">Experience</label>
             <select
               defaultValue=""
-              name="experience"
+              {...register("experience", { required: true })}
+
               id="experience"
               className="w-full p-3 border border-gray-300 rounded-lg"
-              required
+
             >
               <option disabled value="">
                 Select Experience
@@ -157,6 +168,7 @@ const TeachOnAcademiaHub =()=> {
               <option value="Mid-level">Mid-level</option>
               <option value="Experienced">Experienced</option>
             </select>
+            {errors.experience && <span className="text-red-600">experience is required</span>}
           </div>
 
           <div className="mb-4">
@@ -164,21 +176,22 @@ const TeachOnAcademiaHub =()=> {
             <input
               type="text"
               placeholder="Enter Your Title"
-              name="title"
+              {...register("title", { required: true })}
+
               id="title"
               className="w-full p-3 border border-gray-300 rounded-lg"
-              required
-            />
+
+            /> {errors.title && <span className="text-red-600">title is required</span>}
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">Category</label>
             <select
               defaultValue=""
-              name="category"
+              {...register("category", { required: true })}
               id="category"
               className="w-full p-3 border border-gray-300 rounded-lg"
-              required
+
             >
               <option disabled value="">
                 Select Category
@@ -189,6 +202,7 @@ const TeachOnAcademiaHub =()=> {
               <option value="Data Science">Data Science</option>
               <option value="Content Writing">Content Writing</option>
             </select>
+            {errors.category && <span className="text-red-600">category is required</span>}
           </div>
 
           <button

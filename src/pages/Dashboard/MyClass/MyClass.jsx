@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 
 const MyClass = () => {
@@ -87,6 +88,9 @@ const MyClass = () => {
 
     return (
         <div className="container mx-auto my-10 px-4">
+            <Helmet>
+                <title>MyClass || AcademiaHub</title>
+            </Helmet>
             <h1 className="text-3xl font-semibold text-gray-800 text-center mb-6">
                 My Classes
             </h1>

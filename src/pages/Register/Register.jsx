@@ -5,26 +5,23 @@ import SocialLogin from '../../components/SocialLogin/SocialLogin';
 import { AuthContext } from '../../provider/AuthProvider';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { useForm } from 'react-hook-form';
+import { Helmet } from 'react-helmet-async';
 
 
-// import { Helmet } from 'react-helmet';
+
 
 const Register = () => {
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
     const { creatUser, updateProfileInfo } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const axiosPublic = useAxiosPublic();
 
-    const handleRegister = (e) => {
-        e.preventDefault();
-
-        const form = e.target
-        const name = e.target.name.value;
-        const photoUrl = e.target.photoUrl.value;
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        console.log(name, photoUrl, email, password);
+    const onSubmit = (data) => {
+     
+        // console.log(data);
 
         // //password validation
         // const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -33,27 +30,28 @@ const Register = () => {
         //     toast.error("Password must have at least 6 characters, including at least one uppercase and one lowercase letter.");
         //     return;
 
-        creatUser(email, password)
+        creatUser(data.email, data.password)
             .then(result => {
                 console.log(result.user);
 
-                updateProfileInfo(name, photoUrl)
+                updateProfileInfo(data.name, data.photoUrl)
 
                     .then(() => {
                         console.log("user profile info updated")
 
                         // creat user in the database
                         const userInfo = {
-                            name: name,
-                            email: email,
-                            photoURL:photoUrl,
+                            name: data.name,
+                            email: data.email,
+                            photoURL: data.photoUrl,
                             role: "Student"
                         }
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
                                     console.log("user added to the database");
-                                    form.reset();
+                                    // form.reset();
+                                    reset()
                                     Swal.fire({
                                         position: "top",
                                         icon: "success",
@@ -86,25 +84,27 @@ const Register = () => {
 
     return (
         <div className="flex flex-col justify-center my-8 shadow-lg rounded-lg p-8 max-w-md mx-auto">
-            {/* <Helmet>
-                <title>Register | FindMate</title>
-            </Helmet> */}
+            <Helmet>
+                <title>Register | AcademiaHub</title>
+            </Helmet>
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Register</h2>
-            <form onSubmit={handleRegister} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                 {/* Name Field */}
                 <div>
                     <label htmlFor="name" className="block text-gray-700">
                         Name
                     </label>
-                    <input type="text" id="name" name="name" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your name" required />
+                    <input type="text" id="name" {...register("name", { required: true })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your name" />
+                    {errors.name && <p className='text-red-600'>Name is required.</p>}
                 </div>
                 {/* Photo URL Field */}
                 <div>
                     <label htmlFor="photoURL" className="block text-gray-700">
                         Photo URL
                     </label>
-                    <input type="photoUrl" id="photoURL" name="photoUrl" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your photo URL" required />
+                    <input type="photoUrl" id="photoURL" {...register("photoUrl", { required: true })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your photo URL" />
+                    {errors.photoUrl && <p className='text-red-600'>Name is required.</p>}
                 </div>
 
                 {/* Email Field */}
@@ -112,7 +112,8 @@ const Register = () => {
                     <label htmlFor="email" className="block text-gray-700">
                         Email
                     </label>
-                    <input type="text" id="email" name="email" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" required />
+                    <input type="text" id="email" {...register("email", { required: true })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" />
+                    {errors.email && <p className='text-red-600'>Name is required.</p>}
                 </div>
 
                 {/* Password Field */}
@@ -120,13 +121,16 @@ const Register = () => {
                     <label htmlFor="password" className="block text-gray-700">
                         Password
                     </label>
-                    <input type={showPassword ? 'text' : 'password'} id="password" name="password" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your password" required />
+                    <input type={showPassword ? 'text' : 'password'} id="password"  {...register("password", { required: true })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your password" />
+                    
                     <a onClick={() => setShowPassword(!showPassword)} className="btn btn-xs absolute right-4 bottom-2">
                         {
                             showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
                         }
                     </a>
+                    
                 </div>
+                {errors.password && <p className='text-red-600 !-mt-[1px]'>Password is required.</p>}
                 {/* Submit Button */}
                 <button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
                 >Register </button>

@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AllClasses = () => {
     const axiosSecure = useAxiosSecure();
 
 
-    const { data: classes = [], refetch } = useQuery({
+    const { data: classes = [], } = useQuery({
         queryKey: ["classes"],
         queryFn: async () => {
             const res = await axiosSecure.get("/classes");
@@ -19,6 +20,9 @@ const AllClasses = () => {
 
     return (
         <div className="p-5 container mx-auto">
+             <Helmet>
+                            <title>AllClass|| AcademiaHub</title>
+                        </Helmet>
             <h1 className="text-2xl font-bold mb-4">Total Classes: {classes.length}</h1>
             <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                 {classes.map((classItem) => (

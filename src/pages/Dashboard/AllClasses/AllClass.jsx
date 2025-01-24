@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -82,6 +83,9 @@ const AllClass = () => {
   return (
 
     <div>
+      <Helmet>
+        <title>AllClass || AcademiaHub</title>
+      </Helmet>
       <h2 className=" text-2xl md:text-3xl font-bold text-center mb-6">All Class List</h2>
 
       <div className="overflow-x-auto">
@@ -103,7 +107,7 @@ const AllClass = () => {
                 <td>{classItem.title}</td>
                 <td>{classItem.description}</td>
                 <td>{classItem.email}</td>
-                <td><button className="btn">{classItem.status}</button></td>
+                <td><button className={`${classItem.status === "Accepted" && "bg-green-200"} ${classItem.status === "Rejected" && 'bg-red-300'} ${classItem.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}>{classItem.status}</button></td>
                 <td>
                   <div className="flex  items-center justify-around gap-2 ">
                     <button

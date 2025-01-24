@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 const TeacherRequest = () => {
@@ -106,6 +107,9 @@ const TeacherRequest = () => {
   return (
 
     <div className="overflow-x-auto ">
+      <Helmet>
+        <title>TeacherRequest || AcademiaHub</title>
+      </Helmet>
       <table className="table text-base">
         {/* head */}
         <thead>
@@ -142,11 +146,11 @@ const TeacherRequest = () => {
               <td>{teacher.experience}</td>
               <td>{teacher.title}</td>
               <td>{teacher.category}</td>
-              <td><button className="btn">{teacher.status}</button></td>
+              <td><button className={`${teacher.status === "Accepted" && "bg-green-200"} ${teacher.status === "Rejected" && 'bg-red-300'} ${teacher.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}>{teacher.status}</button></td>
               <th className="flex gap-1">
 
                 <button
-                  className={`btn bg-green-400 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-65"
+                  className={`btn bg-green-400 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
                     }`}
                   onClick={() => handleApprove(teacher.email)}
                   disabled={teacher.status === "Rejected"}
@@ -177,9 +181,9 @@ const TeacherRequest = () => {
       </table>
     </div>
 
-   
+
 
   )
-      
+
 };
-      export default TeacherRequest;
+export default TeacherRequest;

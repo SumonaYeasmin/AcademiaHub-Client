@@ -1,4 +1,5 @@
 import Banner from "../Banner/Banner";
+import Features from "../Features/Features";
 import PartnersSection from "../PartnersSection/PartnersSection";
 
 
@@ -7,6 +8,7 @@ const Home = () => {
         <div className="">
            <Banner></Banner>
            <PartnersSection></PartnersSection>
+           <Features></Features>
         </div>
     );
 };

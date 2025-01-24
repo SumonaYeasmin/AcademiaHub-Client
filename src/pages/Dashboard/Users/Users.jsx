@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -29,7 +30,7 @@ const Users = () => {
                         icon: "success",
                         title: `${user.name} is an Admin Now!`,
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 2000
                     });
                 }
             })
@@ -37,6 +38,9 @@ const Users = () => {
 
     return (
         <div className="p-4">
+            <Helmet>
+                <title>Users || AcademiaHub</title>
+            </Helmet>
             <h1 className="text-2xl font-bold mb-4">Users List</h1>
             <div className="overflow-x-auto">
                 <table className="table w-full text-sm md:text-base">
@@ -65,9 +69,7 @@ const Users = () => {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>
-                                        <button className="btn ">
                                             {user.role}
-                                        </button>
                                     </td>
                                     <td>
                                         <button
