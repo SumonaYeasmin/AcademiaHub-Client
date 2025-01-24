@@ -16,13 +16,15 @@ const TeacherRequest = () => {
   });
 
   // handle approve btn
-  const handleApprove = async (teacherId) => {
+  const handleApprove = async (email) => {
+    console.log(email);
     try {
-      const res = await axiosSecure.patch(`/teachers/approve/${teacherId}`, {
-        status: "accepted",
-        role: "teacher",
+      const res = await axiosSecure.patch(`/teachers/approve/${email}`, {
+        status: "Accepted",
+        role: "Teacher",
       });
       if (res.data.modifiedCount > 0) {
+        // const response = await axiosSecure.patch(`users/role/${id}`)
         Swal.fire({
           position: "top",
           icon: "success",
@@ -33,7 +35,7 @@ const TeacherRequest = () => {
         refetch();
       }
     } catch {
-      // console.log(error.code);
+      console.log(error.code);
       Swal.fire({
         position: "top",
         icon: "error",
@@ -43,6 +45,7 @@ const TeacherRequest = () => {
       });
     }
   }
+
 
   // handle rejecte btn
   const handleReject = async (teacherId) => {
@@ -118,7 +121,7 @@ const TeacherRequest = () => {
               <th className="flex gap-1">
                 <button
                   className="btn bg-green-400"
-                  onClick={() => handleApprove(teacher._id)}
+                  onClick={() => handleApprove(teacher.email)}
                   disabled={teacher.status === "rejected"}>
                   Approve
                 </button>
