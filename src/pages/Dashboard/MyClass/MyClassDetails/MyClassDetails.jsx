@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import UseCount from "../../../../hooks/useCount";
 
 
 const MyClassDetails = () => {
@@ -9,8 +11,8 @@ const MyClassDetails = () => {
     // console.log(id);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const axiosSecure =useAxiosSecure();
-    const { register, handleSubmit, formState: { errors },} = useForm();
-
+    const { register, reset, handleSubmit, formState: { errors },} = useForm();
+    const [assignments, refetch] = UseCount()
 
     const onSubmit = async (data) => {
         console.log(data);
@@ -21,7 +23,7 @@ const MyClassDetails = () => {
             description: data.description,
             title:data.title
         }
-          const response = await axiosSecure.post('/', assignmentInfo)
+          const response = await axiosSecure.post('/assignments', assignmentInfo)
                 // console.log(response.data);
                 try {
                     if (response.data.insertedId) {
@@ -29,12 +31,13 @@ const MyClassDetails = () => {
                         Swal.fire({
                             position: "top",
                             icon: "success",
-                            title: "Request submitted successfully!",
+                            title: "Assignment added successfully!",
                             showConfirmButton: false,
                             timer: 2000,
                         });
                         reset()
-                        navigate('/dashboard/my-class');
+                        refetch()
+                        // navigate('/dashboard/my-class');
                     }
                 }
                 catch {
@@ -42,7 +45,7 @@ const MyClassDetails = () => {
                     Swal.fire({
                         position: "top",
                         icon: "error",
-                        title: "Failed to submit request. Please try again later.",
+                        title: "Failed to add assignment. Please try again",
                         showConfirmButton: false,
                         timer: 2000,
                     });
@@ -68,7 +71,7 @@ const MyClassDetails = () => {
                     {/* Total Assignments Card */}
                     <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center">
                         <h3 className="text-xl font-semibold text-gray-800 mb-4">Total Assignments</h3>
-                        <p className="text-4xl text-gray-600">0</p> {/* Placeholder for total assignments */}
+                        <p className="text-4xl text-gray-600">{assignments.length}</p> {/* Placeholder for total assignments */}
                     </div>
 
                     {/* Total Submissions Card */}

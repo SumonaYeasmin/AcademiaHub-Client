@@ -20,9 +20,9 @@ const AllClasses = () => {
 
     return (
         <div className="p-5 container mx-auto">
-             <Helmet>
-                            <title>AllClass|| AcademiaHub</title>
-                        </Helmet>
+            <Helmet>
+                <title>AllClasses|| AcademiaHub</title>
+            </Helmet>
             <h1 className="text-2xl font-bold mb-4">Total Classes: {classes.length}</h1>
             <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                 {classes.map((classItem) => (

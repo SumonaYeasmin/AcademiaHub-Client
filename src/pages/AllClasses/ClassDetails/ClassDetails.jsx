@@ -1,11 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import UseCount from "../../../hooks/useCount";
 
 const ClassDetails = () => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
-
+    // [, refetch] = UseCount()
 
     const { data: classDetails, isLoading } = useQuery({
         queryKey: ["classDetails", id],

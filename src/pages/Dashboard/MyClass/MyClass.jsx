@@ -7,13 +7,15 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 
+
 const MyClass = () => {
     const axiosSecure = useAxiosSecure();
+   
     const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
     const [currentClass, setCurrentClass] = useState(null); // Current class data for the modal;
 
 
-    const { data: classes = [], refetch } = useQuery({
+    const { data: classes = [],} = useQuery({
         queryKey: ["classes"],
         queryFn: async () => {
             const res = await axiosSecure.get("/classes");
