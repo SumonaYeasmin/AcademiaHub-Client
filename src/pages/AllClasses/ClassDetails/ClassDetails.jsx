@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import UseCount from "../../../hooks/useCount";
+import { Helmet } from "react-helmet-async";
 
 const ClassDetails = () => {
     const { id } = useParams();
@@ -34,6 +35,9 @@ const ClassDetails = () => {
 
     return (
         <div className="container mx-auto my-16 p-2">
+            <Helmet>
+                <title>ClassDetails || AcademiaHub</title>
+            </Helmet>
             <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto">
                 <div className="flex flex-col md:flex-row">
                     {/* Image Section */}

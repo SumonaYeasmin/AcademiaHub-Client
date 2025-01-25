@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import UseCount from "../../../../hooks/useCount";
+import { Helmet } from "react-helmet-async";
+import { useQuery } from "@tanstack/react-query";
 
 
 const MyClassDetails = () => {
@@ -13,6 +15,8 @@ const MyClassDetails = () => {
     const axiosSecure =useAxiosSecure();
     const { register, reset, handleSubmit, formState: { errors },} = useForm();
     const [assignments, refetch] = UseCount()
+    // const [totalEnrolment, setTotalEnrollment] =useState(0);
+
 
     const onSubmit = async (data) => {
         console.log(data);
@@ -53,10 +57,32 @@ const MyClassDetails = () => {
         
     }
 
+    const { data: classes, isLoading, error } = useQuery({
+        queryKey: ['classes', id],
+        queryFn: async () => {
+            const response = await axiosSecure.get(`/classes/${id}`);
+            return response.data; 
+        },
+        // The data is returned when the query is successful
+        // onSuccess: (data) => {
+        //     setTotalEnrollment(data.totalEnrolment);  // Set the total enrollments
+        // },
+    });
+    // console.log(classes);
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error fetching data</div>;
+    }
 
     return (
         <div>
+            <Helmet>
+                <title>MyClassDetails || AcademiaHub</title>
+            </Helmet>
             <div className="container mx-auto my-10 px-4">
                 <h1 className="text-3xl font-semibold text-gray-800 text-center mb-6">Class Progress</h1>
 
@@ -65,7 +91,7 @@ const MyClassDetails = () => {
                     {/* Total Enrollments Card */}
                     <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center">
                         <h3 className="text-xl font-semibold text-gray-800 mb-4">Total Enrollments</h3>
-                        <p className="text-4xl text-gray-600">0</p> {/* Placeholder for total enrollments */}
+                        <p className="text-4xl text-gray-600">{classes.totalEnrolment}</p> {/* Placeholder for total enrollments */}
                     </div>
 
                     {/* Total Assignments Card */}

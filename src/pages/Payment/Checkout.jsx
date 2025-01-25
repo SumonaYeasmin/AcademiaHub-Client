@@ -4,6 +4,8 @@ import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import UseCount from '../../hooks/useCount';
+import { Helmet } from 'react-helmet-async';
 
 const Checkout = ({ classItem }) => {
     console.log(classItem);
@@ -15,6 +17,7 @@ const Checkout = ({ classItem }) => {
     const [clientSecret, setClientSecret] = useState(null);
     const price = classItem.price;
     const navigate = useNavigate();
+    // [, refetch]=UseCount();
 
     useEffect(() => {
         if (price > 0) {
@@ -25,6 +28,31 @@ const Checkout = ({ classItem }) => {
                 });
         }
     }, [axiosSecure, price]);
+
+
+    const handleEnrollSuccess = async () => {
+        try {
+            // Payment is successful, now update the enrollment count
+            await axiosSecure.patch(`/classes/enroll/${classItem._id}`);
+    
+            // Show success message
+            Swal.fire({
+                title: "Enrollment Successful",
+                text: "You are successfully enrolled in this class!",
+                icon: "success",
+            });
+            // refetch(); 
+    
+        } catch (error) {
+            Swal.fire({
+                title: "Enrollment Failed",
+                text: `${error}`,
+                icon: "error",
+            });
+        }
+    };
+    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -86,13 +114,14 @@ const Checkout = ({ classItem }) => {
                 const res = await axiosSecure.post('/payments', paymentInfo)
                 // console.log(res.data);
                 if (res.data.insertedId) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: "Congratulations!",
-                        text: ' You have successfully completed the payment..',
-                        showConfirmButton: false,
-                        timer: 2000,
-                    });
+                    handleEnrollSuccess();
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     title: "Congratulations!",
+                    //     text: ' You have successfully completed the payment..',
+                    //     showConfirmButton: false,
+                    //     timer: 2000,
+                    // });
                     navigate('/dashboard/my-enroll-class')
                 }
             }
@@ -100,7 +129,12 @@ const Checkout = ({ classItem }) => {
     }
 
     return (
+       
         <div className="bg-gray-50 max-w-[600px] mx-auto p-4 md:p-8 rounded-lg shadow-lg mt-10">
+             <Helmet>
+                <title>ChekOut || AcademiaHub</title>
+             </Helmet>
+
             <h1 className="text-center text-2xl font-semibold mb-6 text-teal-600">Checkout</h1>
             <h2 className="text-center text-xl mb-6">Total Price: <span className="text-teal-600 font-bold">${price}</span></h2>
             <form onSubmit={handleSubmit} className="space-y-4">
