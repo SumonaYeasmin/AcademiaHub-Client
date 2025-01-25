@@ -17,6 +17,7 @@ import Profile from "../pages/Shared/Profile/Profile";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Payment from "../pages/Payment/Payment";
 import MyEnrollClass from "../pages/Dashboard/MyEnrollClass/MyEnrollClass";
+import EnrollClassDetails from "../pages/Dashboard/MyEnrollClass/EnrollClassDetails/EnrollClassDetails";
 
  const router = createBrowserRouter([
     {
@@ -98,6 +99,10 @@ import MyEnrollClass from "../pages/Dashboard/MyEnrollClass/MyEnrollClass";
           {
             path: '/dashboard/my-enroll-class',
             element: <MyEnrollClass></MyEnrollClass>
+          },
+          {
+            path: '/dashboard/myenroll-class/:id',
+            element: <EnrollClassDetails></EnrollClassDetails>
           },
           {
             path: '/dashboard/profile',

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const MyEnrollClass = () => {
@@ -17,11 +18,11 @@ const MyEnrollClass = () => {
 
     return (
 
-        <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-7">
+        <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7">
             {enrollClasse.map((classItem) => (
                 <div
                     key={classItem._id}
-                    className="bg-white shadow-lg p-2 rounded-lg overflow-hidden transition-transform transform hover:scale-105"
+                    className="bg-white shadow-lg p-2 rounded-lg overflow-hidden transition-transform transform"
                 >
                     {/* Image Section */}
                     <img
@@ -42,13 +43,14 @@ const MyEnrollClass = () => {
                     </p>
 
                     {/* Continue Button */}
+                    <Link to={`/dashboard/myenroll-class/${classItem._id}`}>
                     <button
-                        className="mt-auto bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-all"
-                    >
+                        className="btn bg-teal-600 text-white rounded-md hover:bg-blue-700 ">
                         Continue
                     </button>
+                    </Link>
                 </div>
-            
+            // `/dashboard/my-class/${classItem._id}`
 
             ))}
         </div>
