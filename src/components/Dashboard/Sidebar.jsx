@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import AdminMenu from './Menu/AdminMenu';
 import useRole from '../../hooks/useRole';
 import TeacherMenu from './Menu/TeacherMenu';
+import StudentMenu from './Menu/StudentMenu';
 
 const Sidebar = () => {
     const [isActive, setActive] = useState(true);
     const [role] = useRole();
     console.log(role);
-    // const role = 'teacher'
+    
 
     // Sidebar Responsive Handler
     const handleToggle = () => {
@@ -64,6 +65,7 @@ const Sidebar = () => {
                         <nav>
                             {role === 'Admin' && <AdminMenu />}
                             {role === 'Teacher' && <TeacherMenu />}
+                            {role === 'Student' && <StudentMenu></StudentMenu>}
                         </nav>
                     </div>
                 </div>

@@ -1,7 +1,4 @@
-import {
-    createBrowserRouter,
-   
-  } from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import MainLayouts from "../layouts/MainLayouts";
 import Home from "../pages/Home/Home/Home";
 import AllClasses from "../pages/AllClasses/AllClasses";
@@ -12,7 +9,6 @@ import Register from "../pages/Register/Register";
 import TeacherRequest from "../pages/Dashboard/TeacherRequest/TeacherRequest";
 import Users from "../pages/Dashboard/Users/Users";
 import AllClass from "../pages/Dashboard/AllClasses/AllClass";
-
 import AddClass from "../pages/Dashboard/AddClass/AddClass";
 import ClassDetails from "../pages/AllClasses/ClassDetails/ClassDetails";
 import MyClass from "../pages/Dashboard/MyClass/MyClass";
@@ -20,6 +16,7 @@ import MyClassDetails from "../pages/Dashboard/MyClass/MyClassDetails/MyClassDet
 import Profile from "../pages/Shared/Profile/Profile";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Payment from "../pages/Payment/Payment";
+import MyEnrollClass from "../pages/Dashboard/MyEnrollClass/MyEnrollClass";
 
  const router = createBrowserRouter([
     {
@@ -58,6 +55,8 @@ import Payment from "../pages/Payment/Payment";
       ]
     },
 
+      // Dashboard
+
     {
         path: "/dashboard",
         element:<Dashboard></Dashboard>,
@@ -74,12 +73,12 @@ import Payment from "../pages/Payment/Payment";
             path: '/dashboard/all-class',
             element: <AllClass />
           },
-
-
           {
             path: '/dashboard/profile',
             element: <Profile></Profile>
           },
+
+           // Teacher Dashboard
           {
             path: '/dashboard/add-class',
             element: <AddClass></AddClass>
@@ -92,6 +91,18 @@ import Payment from "../pages/Payment/Payment";
             path: '/dashboard/my-class/:id',
             element: <MyClassDetails></MyClassDetails>
           },
+
+
+          // Student Dashboard
+
+          {
+            path: '/dashboard/my-enroll-class',
+            element: <MyEnrollClass></MyEnrollClass>
+          },
+          {
+            path: '/dashboard/profile',
+            element: <Profile></Profile>
+          }
         ]
     }
   ]);
