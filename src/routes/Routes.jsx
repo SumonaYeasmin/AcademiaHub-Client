@@ -19,6 +19,7 @@ import MyClass from "../pages/Dashboard/MyClass/MyClass";
 import MyClassDetails from "../pages/Dashboard/MyClass/MyClassDetails/MyClassDetails";
 import Profile from "../pages/Shared/Profile/Profile";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Payment from "../pages/Payment/Payment";
 
  const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
           {
             path: "/classes/:id",
             element: <ClassDetails></ClassDetails>,
+          },
+          {
+            path: "/payment",
+            element: <Payment></Payment>,
           },
           {
             path: "/teachOnAcademiaHub",

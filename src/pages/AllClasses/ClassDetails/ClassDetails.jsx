@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ClassDetails = () => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
+    const location = useLocation();
 
     const { data: classDetails, isLoading } = useQuery({
         queryKey: ["classDetails", id],
@@ -58,9 +59,17 @@ const ClassDetails = () => {
                         <p className="text-lg font-semibold text-blue-500 mb-4">
                             Price: ${classDetails.price}
                         </p>
-                        <button className="px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all mt-auto">
-                            Pay Now
-                        </button>
+                        <Link
+                            to={{
+                                pathname: '/payment',
+                            }}
+                            state={{ class: classDetails }}
+                        >
+                            <button className="px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all mt-auto">
+                                Pay Now
+                            </button>
+                        </Link>
+
                     </div>
                 </div>
             </div>

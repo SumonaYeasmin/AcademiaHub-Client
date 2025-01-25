@@ -31,10 +31,10 @@ const Features = () => {
         },
       ];
     return (
-        <div className="container mx-auto ">
-            <div className="bg-gradient-to-br from-teal-300 via-indigo-200 to-purple-300 py-12 px-6 md:px-16">
+        <div className="my-16">
+            <div className=" py-16 bg-gradient-to-br from-teal-300 via-indigo-200 to-purple-300  px-6 md:px-16">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-        Why Choose EduManage?
+        Why Choose AcademiaHub?
       </h2>
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {features.map((feature) => (
