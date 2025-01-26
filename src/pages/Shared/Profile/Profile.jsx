@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 const Profile = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure()
-    const { data: users = [], refetch } = useQuery({
+    const { data: users = [],isLoading, error} = useQuery({
         queryKey: ["users", user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/${user?.email}`);
@@ -16,6 +16,23 @@ const Profile = () => {
         },
     });
 
+    // Loading state
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <span className="text-xl text-gray-600">Loading...</span>
+            </div>
+        );
+    }
+
+    // Error state
+    if (error) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <span className="text-xl text-gray-600">{error.message || "Error loading data!"}</span>
+            </div>
+        );
+    }
 
     return (
 

@@ -28,11 +28,11 @@ const AllClasses = () => {
                 {classes.map((classItem) => (
                     <div
                         key={classItem._id}
-                        className="rounded-lg shadow-lg ">
+                        className="w-full rounded-lg shadow-lg p-2 ">
                         <img
                             src={classItem.photoURL}
                             alt="Class Image"
-                            className="w-full object-cover rounded-lg"
+                            className="w-full h-52 md:h-72 object-cover rounded-lg"
                         />
                         <div className="p-5">
                             <h2 className="text-xl font-bold text-gray-800 mb-2">{classItem.title}</h2>
