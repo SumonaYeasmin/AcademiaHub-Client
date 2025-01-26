@@ -17,7 +17,7 @@ const Checkout = ({ classItem }) => {
     const [clientSecret, setClientSecret] = useState(null);
     const price = classItem.price;
     const navigate = useNavigate();
-    // [, refetch]=UseCount();
+   
 
     useEffect(() => {
         if (price > 0) {

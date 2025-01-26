@@ -1,15 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 
 const MyEnrollClass = () => {
     const axiosSecure = useAxiosSecure();
+    const { user } = useAuth();
 
     const { data: enrollClasse = [] } = useQuery({
-        queryKey: ["payments",],
+        queryKey: ["payments", user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get('/payments');
+            const res = await axiosSecure.get(`/payments/${user?.email}`);
             console.log(res.data);
             return res.data;
         },
@@ -19,6 +22,9 @@ const MyEnrollClass = () => {
     return (
 
         <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7">
+            <Helmet>
+                <title>MyEnrollClass || AcademiaHub</title>
+            </Helmet>
             {enrollClasse.map((classItem) => (
                 <div
                     key={classItem._id}
@@ -32,7 +38,7 @@ const MyEnrollClass = () => {
                     />
 
                     {/* Card Content */}
-                
+
 
                     <h2 className="text-lg font-bold text-gray-800 mb-2">
                         {classItem.title}
@@ -43,14 +49,17 @@ const MyEnrollClass = () => {
                     </p>
 
                     {/* Continue Button */}
-                    <Link to={`/dashboard/myenroll-class/${classItem._id}`}>
-                    <button
-                        className="btn bg-teal-600 text-white rounded-md hover:bg-blue-700 ">
-                        Continue
-                    </button>
+                    <Link
+                        to={`/dashboard/myenroll-class/${classItem._id}`}
+                        state={{ teacherEmail: classItem.teacherEmail, title: classItem.title }}
+                    >
+                        <button
+                            className="btn bg-teal-600 text-white rounded-md hover:bg-blue-700 ">
+                            Continue
+                        </button>
                     </Link>
                 </div>
-            // `/dashboard/my-class/${classItem._id}`
+                // `/dashboard/my-class/${classItem._id}`
 
             ))}
         </div>

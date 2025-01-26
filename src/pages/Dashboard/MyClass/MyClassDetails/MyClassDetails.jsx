@@ -6,67 +6,70 @@ import Swal from "sweetalert2";
 import UseCount from "../../../../hooks/useCount";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../../hooks/useAuth";
 
 
 const MyClassDetails = () => {
     const { id } = useParams();
+    const { user } = useAuth();
     // console.log(id);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const axiosSecure =useAxiosSecure();
-    const { register, reset, handleSubmit, formState: { errors },} = useForm();
+    const axiosSecure = useAxiosSecure();
+    const { register, reset, handleSubmit, formState: { errors }, } = useForm();
     const [assignments, refetch] = UseCount()
-    // const [totalEnrolment, setTotalEnrollment] =useState(0);
+
 
 
     const onSubmit = async (data) => {
         console.log(data);
-        setIsModalOpen(true);
+        
 
-        const assignmentInfo ={
+        const assignmentInfo = {
             deadline: data.deadline,
             description: data.description,
-            title:data.title
+            title: data.title,
+            teacherEmail: user?.email,
+            totalSubmissionCount: 0
         }
-          const response = await axiosSecure.post('/assignments', assignmentInfo)
-                // console.log(response.data);
-                try {
-                    if (response.data.insertedId) {
-                        // console.log("Added to mongoDB");
-                        Swal.fire({
-                            position: "top",
-                            icon: "success",
-                            title: "Assignment added successfully!",
-                            showConfirmButton: false,
-                            timer: 2000,
-                        });
-                        reset()
-                        refetch()
-                        // navigate('/dashboard/my-class');
-                    }
-                }
-                catch {
-                    // console.log('Error');
-                    Swal.fire({
-                        position: "top",
-                        icon: "error",
-                        title: "Failed to add assignment. Please try again",
-                        showConfirmButton: false,
-                        timer: 2000,
-                    });
-                }
-        
+        const response = await axiosSecure.post('/assignments', assignmentInfo)
+        // console.log(response.data);
+        try {
+            if (response.data.insertedId) {
+                // console.log("Added to mongoDB");
+                Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: "Assignment added successfully!",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                reset()
+                refetch()
+                setIsModalOpen(false);
+                // navigate('/dashboard/my-class');
+            }
+        }
+        catch {
+            // console.log('Error');
+            Swal.fire({
+                position: "top",
+                icon: "error",
+                title: "Failed to add assignment. Please try again",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        }
+
     }
 
     const { data: classes, isLoading, error } = useQuery({
         queryKey: ['classes', id],
         queryFn: async () => {
             const response = await axiosSecure.get(`/classes/${id}`);
-            return response.data; 
+            console.log(response.data);
+            return response.data;
         },
-        // The data is returned when the query is successful
-        // onSuccess: (data) => {
-        //     setTotalEnrollment(data.totalEnrolment);  // Set the total enrollments
-        // },
+
     });
     // console.log(classes);
 
@@ -77,6 +80,7 @@ const MyClassDetails = () => {
     if (error) {
         return <div>Error fetching data</div>;
     }
+
 
     return (
         <div>

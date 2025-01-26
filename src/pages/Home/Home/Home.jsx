@@ -1,6 +1,7 @@
 import Banner from "../Banner/Banner";
 import CurrentlyPopular from "../CurrentlyPopular/CurrentlyPopular";
 import Features from "../Features/Features";
+import InspiresTeacher from "../InspiresTeacher/InspiresTeacher";
 import PartnersSection from "../PartnersSection/PartnersSection";
 import Statistics from "../Statistics/Statistics";
 
@@ -13,6 +14,7 @@ const Home = () => {
            <Features></Features>
            <CurrentlyPopular></CurrentlyPopular>
            <Statistics></Statistics>
+           <InspiresTeacher></InspiresTeacher>
         </div>
     );
 };
