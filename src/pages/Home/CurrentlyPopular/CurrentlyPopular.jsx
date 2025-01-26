@@ -40,7 +40,7 @@ const CurrentlyPopular = () => {
 
     return (
         <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Top Enrolled Classes</h2>
+            <h2 className="text-2xl font-bold mb-4">Curently Popular Classes</h2>
                <Swiper
                          modules={[Navigation, Pagination, Autoplay]}
                          navigation

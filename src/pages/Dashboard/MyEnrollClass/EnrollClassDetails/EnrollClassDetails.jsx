@@ -63,8 +63,8 @@ const EnrollClassDetails = () => {
       description: data.description,
       rating: rating,
       title: title,
-      photoURL: user.photoURL,
-      name: user.displayName,
+      photoURL: user?.photoURL,
+      name: user?.displayName,
 
 
 
