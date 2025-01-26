@@ -54,17 +54,17 @@ const CurrentlyPopular = () => {
                       
                 {topEnrollments.map((classItem) => (
                     <SwiperSlide key={classItem._id}>
-                        <div className="p-4 border border-gray-300 rounded-lg shadow-md">
+                        {/* <div className="p-4 border border-gray-300 rounded-lg shadow-md"> */}
                             <img
                                 src={classItem.photoURL}
                                 alt={classItem.title}
                                 className="w-full h-[300px] md:h-[450px] xl:h-[550px] object-cover rounded-md mb-4"
                             />
-                            <h3 className="text-lg font-semibold">{classItem.title}</h3>
-                            <p className="text-sm text-gray-700">{classItem.description}</p>
-                            <p className="text-sm text-gray-500">{classItem.price}</p>
+                            <h3 className="text-2xl font-semibold">{classItem.title}</h3>
+                            {/* <p className=" text-gray-700">{classItem.description}</p> */}
+                            <p className=" text-gray-500">Price: ${classItem.price}</p>
                             <p className="mt-2 text-gray-800">Enrolled: {classItem.totalEnrolment}</p>
-                        </div>
+                        {/* </div> */}
                     </SwiperSlide>
                 ))}
             </Swiper>
