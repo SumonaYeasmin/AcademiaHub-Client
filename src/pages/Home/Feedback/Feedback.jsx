@@ -37,7 +37,7 @@ const Feedback = () => {
             >
                 {feedbacks.map((comment) => (
                     <SwiperSlide key={comment._id}>
-                        <div className="flex flex-col md:flex-row items-center p-6 bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                        <div className="flex flex-col md:flex-row items-center p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                             <img
                                 src={comment.photoURL}
                                 alt={comment.title}
@@ -47,13 +47,13 @@ const Feedback = () => {
                                 <h3 className="text-3xl md:text-5xl font-semibold  bg-gradient-to-r from-teal-500 via-blue-500 to-green-600 text-transparent bg-clip-text md:mb-3">
                                     {comment.title}
                                 </h3>
-                                <p className="text-2xl md:text-2xl text-transparent bg-gradient-to-r from-indigo-400 via-cyan-500 to-fuchsia-500 bg-clip-text leading-relaxed md:mb-2">
+                                <p className="text-2xl font-medium md:text-2xl text-transparent bg-gradient-to-r from-indigo-400 via-cyan-500 to-fuchsia-500 bg-clip-text leading-relaxed md:mb-2 italic">
                                     FeedBack text: {comment.description}
                                 </p>
-                                <p className="text-lg md:text-xl text-transparent bg-gradient-to-r from-blue-800 via-purple-800 to-pink-700 bg-clip-text italic">
+                                <p className="text-lg font-medium md:text-xl text-transparent bg-gradient-to-r from-blue-800 via-purple-800 to-pink-700 bg-clip-text italic">
                                     Posted by: <span className="font-medium text-gray-700">{comment.name}</span>
                                 </p>
-                                <p className="flex items-center text-lg font-medium  mt-2 ">
+                                <p className="flex items-center text-lg font-medium  ">
                                     <span className="mr-2 bg-gradient-to-r from-blue-800 via-purple-800 to-pink-700 bg-clip-text italic">Rating:</span>
                                     <span className="text-cyan-500 text-xl">{comment.rating}</span>
                                     <FcRating className="ml-2 text-xl" />

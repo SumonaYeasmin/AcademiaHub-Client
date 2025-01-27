@@ -2,23 +2,35 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
-
+import { useState } from "react";
 
 const TeacherRequest = () => {
-
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const { data: teachers = [], refetch } = useQuery({
-    queryKey: ['classes'],
+    queryKey: ["classes"],
     queryFn: async () => {
-      const res = await axiosSecure.get('/teachers');
+      const res = await axiosSecure.get("/teachers");
       return res.data;
-    }
+    },
   });
 
-  // handle approve btn
+  // Pagination logic
+  const totalItems = teachers.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = teachers.slice(startIndex, startIndex + itemsPerPage);
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Handle actions (approve, reject, request again)
   const handleApprove = async (email) => {
-    console.log(email);
     try {
       const res = await axiosSecure.patch(`/teachers/approve/${email}`, {
         status: "Accepted",
@@ -30,12 +42,11 @@ const TeacherRequest = () => {
           icon: "success",
           title: "Teacher approved successfully!",
           showConfirmButton: false,
-          timer: 2000
+          timer: 2000,
         });
         refetch();
       }
     } catch {
-      console.log(error.code);
       Swal.fire({
         position: "top",
         icon: "error",
@@ -44,10 +55,8 @@ const TeacherRequest = () => {
         timer: 2000,
       });
     }
-  }
+  };
 
-
-  // handle rejecte btn
   const handleReject = async (teacherId) => {
     try {
       const res = await axiosSecure.patch(`/teachers/reject/${teacherId}`, {
@@ -59,12 +68,11 @@ const TeacherRequest = () => {
           icon: "success",
           title: "Rejected! Teacher request has been rejected!",
           showConfirmButton: false,
-          timer: 2000
+          timer: 2000,
         });
         refetch();
       }
     } catch {
-      // console.log(error.code);
       Swal.fire({
         position: "top",
         icon: "error",
@@ -72,11 +80,9 @@ const TeacherRequest = () => {
         showConfirmButton: false,
         timer: 2000,
       });
-
     }
   };
 
-  // handle request to another btn
   const handleRequestAgain = async (teacherId) => {
     try {
       const res = await axiosSecure.patch(`/teachers/request-again/${teacherId}`, {
@@ -103,18 +109,16 @@ const TeacherRequest = () => {
     }
   };
 
-
   return (
-
-    <div className="overflow-x-auto ">
+    <div className="overflow-x-auto">
       <Helmet>
         <title>TeacherRequest || AcademiaHub</title>
       </Helmet>
+
       <table className="table text-base">
-        {/* head */}
+        {/* Table Header */}
         <thead>
           <tr className="text-lg">
-
             <th>SI No</th>
             <th>Name</th>
             <th>Image</th>
@@ -124,21 +128,17 @@ const TeacherRequest = () => {
             <th>Status</th>
             <th>Actions</th>
           </tr>
-
         </thead>
         <tbody>
-          {
-            teachers.map((teacher, index) => <tr key={teacher._id}>
-
-              <th>{index + 1}</th>
+          {currentItems.map((teacher, index) => (
+            <tr key={teacher._id}>
+              <th>{startIndex + index + 1}</th>
               <td>{teacher.name}</td>
               <td>
                 <div className="flex items-center gap-3">
                   <div className="avatar">
                     <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={teacher.photoURL}
-                        alt="img.." />
+                      <img src={teacher.photoURL} alt="img.." />
                     </div>
                   </div>
                 </div>
@@ -146,12 +146,20 @@ const TeacherRequest = () => {
               <td>{teacher.experience}</td>
               <td>{teacher.title}</td>
               <td>{teacher.category}</td>
-              <td><button className={`${teacher.status === "Accepted" && "bg-green-200"} ${teacher.status === "Rejected" && 'bg-red-300'} ${teacher.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}>{teacher.status}</button></td>
-              <th className="flex gap-1">
-
+              <td>
                 <button
-                  className={`btn bg-green-400 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
-                    }`}
+                  className={`${teacher.status === "Accepted" && "bg-green-200"} ${
+                    teacher.status === "Rejected" && "bg-red-300"
+                  } ${teacher.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}
+                >
+                  {teacher.status}
+                </button>
+              </td>
+              <th className="flex gap-1">
+                <button
+                  className={`btn bg-green-400 ${
+                    teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
+                  }`}
                   onClick={() => handleApprove(teacher.email)}
                   disabled={teacher.status === "Rejected"}
                 >
@@ -160,7 +168,8 @@ const TeacherRequest = () => {
                 <button
                   className="btn bg-red-500"
                   onClick={() => handleReject(teacher._id)}
-                  disabled={teacher.status === "Rejected"}>
+                  disabled={teacher.status === "Rejected"}
+                >
                   Reject
                 </button>
                 {teacher.status === "Rejected" && (
@@ -172,18 +181,47 @@ const TeacherRequest = () => {
                   </button>
                 )}
               </th>
-            </tr>)
-          }
-
-
+            </tr>
+          ))}
         </tbody>
-
       </table>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
+        <button
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`btn mr-2 ${
+            currentPage === 1 ? "opacity-50 cursor-not-allowed" : "bg-teal-600 text-white"
+          }`}
+        >
+          Previous
+        </button>
+        <div className="flex space-x-2">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => goToPage(index + 1)}
+              className={`btn ${
+                currentPage === index + 1 ? "bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`btn ml-2 ${
+            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "bg-teal-600 text-white"
+          }`}
+        >
+          Next
+        </button>
+      </div>
     </div>
-
-
-
-  )
-
+  );
 };
+
 export default TeacherRequest;

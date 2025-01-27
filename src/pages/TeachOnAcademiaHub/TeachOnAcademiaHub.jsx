@@ -68,8 +68,8 @@ const TeachOnAcademiaHub = () => {
           showConfirmButton: false,
           timer: 2000,
         });
-        reset();
-        navigate(location?.state ? location?.state : '/');
+        // reset();
+        // navigate(location?.state ? location?.state : '/');
       }
     }
     catch (error) {

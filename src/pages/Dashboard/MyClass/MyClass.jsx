@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -6,16 +5,14 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
-
-
 const MyClass = () => {
     const axiosSecure = useAxiosSecure();
-   
     const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
-    const [currentClass, setCurrentClass] = useState(null); // Current class data for the modal;
+    const [currentClass, setCurrentClass] = useState(null); // Current class data for the modal
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
-
-    const { data: classes = [],} = useQuery({
+    const { data: classes = [], refetch } = useQuery({
         queryKey: ["classes"],
         queryFn: async () => {
             const res = await axiosSecure.get("/classes");
@@ -23,7 +20,24 @@ const MyClass = () => {
         },
     });
 
-    // handle delete btn
+    // Pagination logic
+    // const totalPages = Math.ceil(classes.length / itemsPerPage);
+    // const displayedClasses = classes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+    // Calculate pagination
+    const totalItems = classes.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentItems = classes.slice(startIndex, startIndex + itemsPerPage);
+
+    // Change Page
+    const goToPage = (page) => {
+        if (page >= 1 && page <= totalPages) {
+            setCurrentPage(page);
+        }
+    };
+
+    // Handle delete button
     const handleDeleteBtn = (classItem) => {
         Swal.fire({
             title: "Are you sure?",
@@ -49,34 +63,27 @@ const MyClass = () => {
         });
     };
 
-
-    // handle update button
+    // Handle update button
     const handleUpdated = (classItem) => {
         setCurrentClass(classItem); // Set the class data to update
         setIsModalOpen(true); // Open the modal
     };
 
-
     const handleModalClose = () => {
-        setIsModalOpen(false); // Close the modal
-        setCurrentClass(null); // Reset the current class
+        setIsModalOpen(false); 
+        setCurrentClass(null); 
     };
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        console.log('form submitted');
-
         const updatedData = {
             title: event.target.title.value,
             price: event.target.price.value,
             description: event.target.description.value,
         };
-        console.log(updatedData);
         axiosSecure.patch(`/classes/${currentClass._id}`, updatedData)
             .then((res) => {
-                console.log(res.data);
                 if (res.data.modifiedCount > 0) {
-
                     Swal.fire({
                         title: "Updated!",
                         text: "Class updated successfully.",
@@ -97,7 +104,7 @@ const MyClass = () => {
                 My Classes
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {classes.map((classItem) => (
+                {currentItems.map((classItem) => (
                     <div
                         key={classItem._id}
                         className="bg-white shadow-md rounded-lg p-2 flex flex-col"
@@ -154,6 +161,59 @@ const MyClass = () => {
                 ))}
             </div>
 
+            {/* Pagination */}
+            {/* <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
+                <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={`btn mr-2 ${currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}>
+                    Previous
+                </button>
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handlePageChange(index + 1)}
+                        className={`px-4 py-2 rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-blue-400`}>
+                        {index + 1}
+                    </button>
+                ))}
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50">
+                    Next
+                </button>
+            </div> */}
+
+
+<div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
+                <button
+                    onClick={() => goToPage(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={`btn mr-2 ${currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
+                >
+                    Previous
+                </button>
+                <div className="flex space-x-2">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => goToPage(index + 1)}
+                            className={`btn ${currentPage === index + 1 ? "bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+                <button
+                    onClick={() => goToPage(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className={`btn ml-2 ${currentPage === totalPages ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
+                >
+                    Next
+                </button>
+            </div>
+
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -169,7 +229,6 @@ const MyClass = () => {
                                     name="title"
                                     defaultValue={currentClass?.title}
                                     className="w-full border border-gray-300 rounded-md p-2"
-
                                 />
                             </div>
                             <div className="mb-4">
@@ -181,7 +240,6 @@ const MyClass = () => {
                                     name="price"
                                     defaultValue={currentClass?.price}
                                     className="w-full border border-gray-300 rounded-md p-2"
-
                                 />
                             </div>
                             <div className="mb-4">
@@ -193,7 +251,6 @@ const MyClass = () => {
                                     defaultValue={currentClass?.description}
                                     className="w-full border border-gray-300 rounded-md p-2"
                                     rows="4"
-
                                 ></textarea>
                             </div>
                             <div className="flex justify-end gap-2">

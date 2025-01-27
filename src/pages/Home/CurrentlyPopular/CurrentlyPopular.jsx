@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-// import { SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,7 +17,6 @@ const CurrentlyPopular = () => {
             return res.data;
         },
     });
-    console.log(topEnrollments);
 
     // Loading state
     if (isLoading) {
@@ -40,31 +38,37 @@ const CurrentlyPopular = () => {
 
     return (
         <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Curently Popular Classes</h2>
-               <Swiper
-                         modules={[Navigation, Pagination, Autoplay]}
-                         navigation
-                         pagination={{ clickable: true }}
-                         autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
-                         loop={true}
-                         spaceBetween={20}
-                         slidesPerView={1}
-                         className="rounded-lg overflow-hidden shadow-lg"
-                     >
-                      
+            <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+                Currently Popular Classes
+            </h2>
+            <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                navigation
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
+                loop={true}
+                spaceBetween={20}
+                slidesPerView={1}
+                className="rounded-lg overflow-hidden shadow-lg"
+            >
                 {topEnrollments.map((classItem) => (
                     <SwiperSlide key={classItem._id}>
-                        {/* <div className="p-4 border border-gray-300 rounded-lg shadow-md"> */}
+                         <div className="flex flex-col md:flex-row items-center bg-gradient-to-r from-blue-400 to-gray-200 p-3 rounded-lg shadow-md gap-x-16">
                             <img
                                 src={classItem.photoURL}
                                 alt={classItem.title}
-                                className="w-full h-[300px] md:h-[450px] xl:h-[550px] object-cover rounded-md mb-4"
+                                className="w-full md:w-1/2 h-[300px] md:h-[450px] object-cover rounded-md"
                             />
-                            <h3 className="text-2xl font-semibold">{classItem.title}</h3>
-                            {/* <p className=" text-gray-700">{classItem.description}</p> */}
-                            <p className=" text-gray-500">Price: ${classItem.price}</p>
-                            <p className="mt-2 text-gray-800">Enrolled: {classItem.totalEnrolment}</p>
-                        {/* </div> */}
+                            <div className="text-center md:text-left md:w-1/2 pt-7 pb-10 md:space-y-3">
+                                <h3 className="text-4xl font-semibold text-gray-800">{classItem.title}</h3>
+                                <p className="text-gray-800 text-xl font-medium">
+                                    <span className="font-semibold text-2xl italic">Price:</span> ${classItem.price}
+                                </p>
+                                <p className="text-gray-800 text-xl font-medium">
+                                    <span className="font-semibold italic text-2xl">Enrolled:</span> {classItem.totalEnrolment}
+                                </p>
+                            </div>
+                        </div>
                     </SwiperSlide>
                 ))}
             </Swiper>

@@ -4,68 +4,73 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 
-
-
 const AllClass = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: classes = [], refetch } = useQuery({
-    queryKey: ['classes'],
-    queryFn: async () => {
-      const res = await axiosSecure.get('/classes');
-      return res.data;
-    }
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Number of classes per page
 
+  const { data: classes = [], refetch } = useQuery({
+    queryKey: ["classes"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/classes");
+      return res.data;
+    },
   });
 
-  // hanlde approve btn
+  // Pagination logic
+  const totalItems = classes.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = classes.slice(startIndex, startIndex + itemsPerPage);
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   const handleApprove = async (classId) => {
     try {
       const res = await axiosSecure.patch(`/classes/approve/${classId}`, {
         status: "Accepted",
       });
-      console.log(res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({
           position: "top",
           icon: "success",
-          title: "class approved successfully!",
+          title: "Class approved successfully!",
           showConfirmButton: false,
-          timer: 2000
+          timer: 2000,
         });
-
         refetch();
       }
     } catch {
-      // console.log(error.code);
       Swal.fire({
         position: "top",
         icon: "error",
-        title: "Failed to Approve class!",
+        title: "Failed to approve class!",
         showConfirmButton: false,
         timer: 2000,
       });
     }
-  }
+  };
 
-  // hanlde reject btn
   const handleReject = async (classId) => {
     try {
       const res = await axiosSecure.patch(`/classes/reject/${classId}`, {
         status: "Rejected",
       });
-      console.log(res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({
           position: "top",
           icon: "success",
-          title: "class rejected successfully!",
+          title: "Class rejected successfully!",
           showConfirmButton: false,
-          timer: 2000
+          timer: 2000,
         });
         refetch();
       }
     } catch {
-      // console.log(error.code);
       Swal.fire({
         position: "top",
         icon: "error",
@@ -74,62 +79,76 @@ const AllClass = () => {
         timer: 2000,
       });
     }
-  }
+  };
 
-  const handleProgress =()=>{
-    console.log('click progress btn');
-  }
+  const handleProgress = () => {
+    console.log("Progress button clicked");
+  };
 
   return (
-
     <div>
       <Helmet>
         <title>AllClass || AcademiaHub</title>
       </Helmet>
-      <h2 className=" text-2xl md:text-3xl font-bold text-center mb-6">All Class List</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
+        All Class List
+      </h2>
 
       <div className="overflow-x-auto">
         <table className="table w-full text-sm md:text-base">
           <thead>
-            <tr className=" text-base md:text-lg">
+            <tr className="text-base md:text-lg">
               <th>SI No</th>
               <th>Class Title</th>
               <th>Description</th>
               <th>Instructor Email</th>
               <th>Status</th>
-              <th className=" pl-5 md:pl-10">Actions</th>
+              <th className="pl-5 md:pl-10">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {classes.map((classItem, index) => (
+            {currentItems.map((classItem, index) => (
               <tr key={classItem._id}>
-                <th>{index + 1}</th>
+                <th>{startIndex + index + 1}</th>
                 <td>{classItem.title}</td>
                 <td>{classItem.description}</td>
                 <td>{classItem.email}</td>
-                <td><button className={`${classItem.status === "Accepted" && "bg-green-200"} ${classItem.status === "Rejected" && 'bg-red-300'} ${classItem.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}>{classItem.status}</button></td>
                 <td>
-                  <div className="flex  items-center justify-around gap-2 ">
+                  <button
+                    className={`${
+                      classItem.status === "Accepted" && "bg-green-200"
+                    } ${classItem.status === "Rejected" && "bg-red-300"} ${
+                      classItem.status === "Pending" && "bg-yellow-200"
+                    } px-2 py-1 rounded-full`}
+                  >
+                    {classItem.status}
+                  </button>
+                </td>
+                <td>
+                  <div className="flex items-center justify-around gap-2">
                     <button
-                      onClick={() => handleApprove(classItem._id)} disabled={classItem.status === 'Accepted'}
+                      onClick={() => handleApprove(classItem._id)}
+                      disabled={classItem.status === "Accepted"}
                       className="btn btn-success"
                     >
                       Approve
                     </button>
                     <button
-                      onClick={() => handleReject(classItem._id)} disabled={classItem.status === "Rejected"}
-                      className="btn btn-error "
+                      onClick={() => handleReject(classItem._id)}
+                      disabled={classItem.status === "Rejected"}
+                      className="btn btn-error"
                     >
                       Reject
                     </button>
                     <button
                       onClick={() => handleProgress(classItem._id)}
-                      className={`btn ${classItem.status === 'Accepted' && 'btn-primary'}`}
-                      disabled={classItem.status !== 'Accepted'} 
+                      className={`btn ${
+                        classItem.status === "Accepted" && "btn-primary"
+                      }`}
+                      disabled={classItem.status !== "Accepted"}
                     >
                       Progress
                     </button>
-                   
                   </div>
                 </td>
               </tr>
@@ -137,9 +156,42 @@ const AllClass = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
+        <button
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`btn mr-2 ${
+            currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"
+          }`}
+        >
+          Previous
+        </button>
+        <div className="flex space-x-2">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => goToPage(index + 1)}
+              className={`btn ${
+                currentPage === index + 1 ? "bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`btn ml-2 ${
+            currentPage === totalPages ? "cursor-not-allowed" : "bg-teal-600 text-white"
+          }`}
+        >
+          Next
+        </button>
+      </div>
     </div>
-
-
   );
 };
 
