@@ -18,6 +18,7 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Payment from "../pages/Payment/Payment";
 import MyEnrollClass from "../pages/Dashboard/MyEnrollClass/MyEnrollClass";
 import EnrollClassDetails from "../pages/Dashboard/MyEnrollClass/EnrollClassDetails/EnrollClassDetails";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
  const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ import EnrollClassDetails from "../pages/Dashboard/MyEnrollClass/EnrollClassDeta
           {
             path: "/register",
             element: <Register></Register>
+          },
+          {
+            path: "*",
+            element: <ErrorPage></ErrorPage>
           },
       ]
     },

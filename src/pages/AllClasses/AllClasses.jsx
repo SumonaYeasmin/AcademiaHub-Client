@@ -48,20 +48,23 @@ const AllClasses = () => {
                             className="w-full h-52 md:h-72 object-cover rounded-lg"
                         />
                         <div className="p-5">
-                            <h2 className="text-xl font-bold text-gray-800 mb-2">{classItem.title}</h2>
-                            <p className=" text-gray-600 mb-2">
-                                Posted by: <span className="font-medium">{classItem.name}</span>
+                            <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">{classItem.title}</h2>
+                            <p className=" text-gray-600  text-lg font-medium">
+                                Posted by: <span className="font-medium italic">{classItem.name}</span>
                             </p>
-                            <p className="text-gray-700 mb-2">Description: {classItem.description}</p>
-                            <div className="flex justify-between">
-                                <p className=" text-gray-600 mb-4">
-                                    Total Enrolment: {classItem.totalEnrolment}
+                            <p className="text-gray-700 mb-2"><span className="text-lg font-medium">Description:</span> {classItem.description}</p>
+                            <div className="flex justify-between items-center">
+                                <p className=" text-gray-600 mb-4 font-medium text-lg">
+                                    <span className="text-lg font-medium"> Total Enrolment:</span> {classItem.totalEnrolment}
                                 </p>
                                 <p className=" font-semibold text-blue-600 mb-2">
                                     Price: ${classItem.price}
                                 </p>
                             </div>
-                            <Link to={`/classes/${classItem._id}`}>
+                            <Link
+                                to={`/classes/${classItem._id}`}
+                                state={{ from: classItem }}
+                            >
                                 <button
                                     className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all">
                                     Enroll
@@ -74,33 +77,38 @@ const AllClasses = () => {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
-                <button
-                    onClick={() => goToPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className={`btn mr-2 ${currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
-                >
-                    Previous
-                </button>
-                <div className="flex space-x-2">
-                    {Array.from({ length: totalPages }, (_, index) => (
+            {
+                currentItems.length > 0 ? <>
+
+                    <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
                         <button
-                            key={index}
-                            onClick={() => goToPage(index + 1)}
-                            className={`btn ${currentPage === index + 1 ? " bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"}`}
+                            onClick={() => goToPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className={`btn mr-2 ${currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
                         >
-                            {index + 1}
+                            Previous
                         </button>
-                    ))}
-                </div>
-                <button
-                    onClick={() => goToPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className={`btn ml-2 ${currentPage === totalPages ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
-                >
-                    Next
-                </button>
-            </div>
+                        <div className="flex space-x-2">
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => goToPage(index + 1)}
+                                    className={`btn ${currentPage === index + 1 ? " bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"}`}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))}
+                        </div>
+                        <button
+                            onClick={() => goToPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className={`btn ml-2 ${currentPage === totalPages ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </> : <h1 className="text-lg font-medium text-center text-red-500 my-10">No Class Availabled</h1>
+            }
         </div>
     );
 };

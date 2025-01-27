@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { Tooltip } from "react-tooltip";
@@ -8,6 +8,7 @@ import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
     const { user, userLogOut } = useContext(AuthContext);
+    const navigate = useNavigate();
 
 
     const handleLogOut = () => {
@@ -20,7 +21,7 @@ const Navbar = () => {
                     showConfirmButton: false,
                     timer: 2000,
                 });
-
+                navigate('/')
             })
             .catch(error => {
                 Swal.fire({
@@ -43,9 +44,9 @@ const Navbar = () => {
             </li>
             {
                 user &&
-                    <li>
-                        <NavLink to="/teachOnAcademiaHub" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Teach On AcademiaHub</NavLink>
-                    </li>
+                <li>
+                    <NavLink to="/teachOnAcademiaHub" className={({ isActive }) => isActive ? 'bg-gradient-to-r from-purple-400 to-indigo-400 font-semibold text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Teach On AcademiaHub</NavLink>
+                </li>
             }
 
 

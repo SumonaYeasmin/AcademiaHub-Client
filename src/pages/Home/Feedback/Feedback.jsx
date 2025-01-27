@@ -22,7 +22,7 @@ const Feedback = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center text-teal-600">
+            <h2 className="text-3xl md:text-5xl font-semibold mb-8 text-center text-teal-600 italic">
                 Student Feedback
             </h2>
             <Swiper
@@ -43,8 +43,8 @@ const Feedback = () => {
                                 alt={comment.title}
                                 className="w-full h-[250px] md:h-[400px] xl:h-[500px] object-cover rounded-md mb-6 md:mb-0 md:w-[50%]"
                             />
-                            <div className="md:w-[50%] pl-0 md:pl-8">
-                                <h3 className="text-3xl md:text-5xl font-semibold  bg-gradient-to-r from-teal-500 via-blue-500 to-green-600 text-transparent bg-clip-text md:mb-3">
+                            <div className="md:w-[50%] pl-0 md:pl-6">
+                                <h3 className="text-3xl md:text-5xl py-2 font-semibold  bg-gradient-to-r from-teal-500 via-blue-500 to-green-600 text-transparent bg-clip-text md:mb-3">
                                     {comment.title}
                                 </h3>
                                 <p className="text-2xl font-medium md:text-2xl text-transparent bg-gradient-to-r from-indigo-400 via-cyan-500 to-fuchsia-500 bg-clip-text leading-relaxed md:mb-2 italic">

@@ -8,8 +8,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 
-const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+// const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+// const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const TeachOnAcademiaHub = () => {
   const {
@@ -33,24 +33,24 @@ const TeachOnAcademiaHub = () => {
   });
 
   const onSubmit = async (data) => {
-    const image = data.image[0];
+    // const image = data.image[0];
     // console.log(image);
     // console.log('data is', data);
 
     try {
       // Upload the image
-      const formData = new FormData();
-      formData.append("image", image);
-      const res = await axiosPublic.post(image_hosting_api, formData, {
-        headers: { "content-type": "multipart/form-data" },
-      });
-      const photoURL = res.data.data.display_url;
+      // const formData = new FormData();
+      // formData.append("image", image);
+      // const res = await axiosPublic.post(image_hosting_api, formData, {
+      //   headers: { "content-type": "multipart/form-data" },
+      // });
+      // const photoURL = res.data.data.display_url;
       // console.log(photoURL);
 
       // Create teacher request payload
       const teacherInfo = {
         name: data.name,
-        photoURL: photoURL,
+        photoURL: user?.photoURL,
         email: data.email,
         experience: data.experience,
         title: data.title,
@@ -68,8 +68,8 @@ const TeachOnAcademiaHub = () => {
           showConfirmButton: false,
           timer: 2000,
         });
-        // reset();
-        // navigate(location?.state ? location?.state : '/');
+        reset();
+        navigate(location?.state ? location?.state : '/');
       }
     }
     catch (error) {
@@ -114,16 +114,15 @@ const TeachOnAcademiaHub = () => {
 
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">Name</label>
-            <input
-              defaultValue={user?.displayName}
-              readOnly
+            <input type="text"
               {...register("name", { required: true })}
               id="name"
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
             />
+             {errors.name && <span className="text-red-600">name is required</span>}
           </div>
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label
               htmlFor="image"
               className="block text-gray-700 font-medium mb-2"
@@ -138,17 +137,20 @@ const TeachOnAcademiaHub = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
 
             />{errors.image && <span className="text-red-600">image is required</span>}
-          </div>
+          </div> */}
 
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">Email</label>
+            <label className="block text-gray-700 font-bold mb-2">Email & Image</label>
+          <div className="mb-4 flex justify-center items-center gap-2">
             <input
               defaultValue={user?.email}
               readOnly
               {...register("email", { required: true })}
               id="email"
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
+              className="w-full cursor-not-allowed p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
             />
+          <div className="rounded-full">
+            <img className="rounded-full w-16 h-16" src={user?.photoURL} alt="" />
+          </div>
           </div>
 
           <div className="mb-4">
@@ -204,7 +206,7 @@ const TeachOnAcademiaHub = () => {
             </select>
             {errors.category && <span className="text-red-600">category is required</span>}
           </div>
-
+     
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200"

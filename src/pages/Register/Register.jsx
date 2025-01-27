@@ -20,15 +20,16 @@ const Register = () => {
     const axiosPublic = useAxiosPublic();
 
     const onSubmit = (data) => {
-     
+
         // console.log(data);
 
-        // //password validation
+        //password validation
         // const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
         // if (!regex.test(password)) {
         //     toast.error("Password must have at least 6 characters, including at least one uppercase and one lowercase letter.");
         //     return;
+        // }    
 
         creatUser(data.email, data.password)
             .then(result => {
@@ -121,16 +122,25 @@ const Register = () => {
                     <label htmlFor="password" className="block text-gray-700">
                         Password
                     </label>
-                    <input type={showPassword ? 'text' : 'password'} id="password"  {...register("password", { required: true })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your password" />
-                    
+                    <input type={showPassword ? 'text' : 'password'} id="password"  {...register("password", {
+                        required: true, minLength: 6, maxLength: 18, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,18}$/
+                    })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your password" />
+
                     <a onClick={() => setShowPassword(!showPassword)} className="btn btn-xs absolute right-4 bottom-2">
                         {
                             showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
                         }
                     </a>
-                    
+
                 </div>
-                {errors.password && <p className='text-red-600 !-mt-[1px]'>Password is required.</p>}
+                <div>
+                    {errors.password?.type === 'required' && <p className='text-red-600'>Password is required</p>}
+                    {errors.password?.type === ('minLength' || 'maxLength') && <p className='text-red-600'>Password must be between 6 to 18 characters.</p>}
+                    {/* {errors.password?.type === 'maxLength' && <p className='text-red-600'>Password must be between 6 to 18 characters.</p>} */}
+                    {errors.password?.type === "pattern" && (
+                        <p className='text-red-600'>Password must have one Uppercase and Lowercase, one Number and one Special character. </p>
+                    )}
+                </div>
                 {/* Submit Button */}
                 <button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
                 >Register </button>

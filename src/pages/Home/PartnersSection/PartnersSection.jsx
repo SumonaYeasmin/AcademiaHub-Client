@@ -35,42 +35,43 @@ const partners = [
   
   const PartnersSection = () => {
     return (
-      <section className="bg-gray-100 py-12">
-        <div className="container mx-auto text-center">
-          {/* Section Title */}
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">
-            Our Trusted Partners
-          </h2>
-          <p className="text-gray-600 mb-12">
-            Collaborating with global leaders to empower education and innovation.
-          </p>
-  
-          {/* Partner Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-            {partners.map((partner, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-lg shadow-md text-left"
-              >
-                {/* Partner Logo */}
-                <div className="flex items-center justify-center mb-4">
-                  <img
-                    src={partner.logo}
-                    alt={`${partner.name} Logo`}
-                    className="h-16 w-auto"
-                  />
-                </div>
-                {/* Partner Name */}
-                <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  {partner.name}
-                </h3>
-                {/* Partner Description */}
-                <p className="text-gray-600 text-sm">{partner.description}</p>
+      <section className="bg-gradient-to-r from-teal-300  to-sky-300 py-12 px-4">
+      <div className="container mx-auto text-center">
+        {/* Section Title */}
+        <h2 className="text-3xl font-bold text-gray-900 mb-4 italic">
+          Our Trusted Partners
+        </h2>
+        <p className="text-gray-800 mb-12 text-lg">
+          Collaborating with global leaders to empower education and innovation.
+        </p>
+    
+        {/* Partner Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+          {partners.map((partner, index) => (
+            <div
+              key={index}
+              className="bg-white p-6 rounded-lg shadow-md text-left"
+            >
+              {/* Partner Logo */}
+              <div className="flex items-center justify-center mb-4">
+                <img
+                  src={partner.logo}
+                  alt={`${partner.name} Logo`}
+                  className="h-16 w-auto"
+                />
               </div>
-            ))}
-          </div>
+              {/* Partner Name */}
+              <h3 className="text-xl font-bold text-gray-800 mb-2">
+                {partner.name}
+              </h3>
+              {/* Partner Description */}
+              <p className="text-gray-600 text-sm">{partner.description}</p>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
+    
     );
   };
   

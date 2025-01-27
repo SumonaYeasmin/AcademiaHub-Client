@@ -20,7 +20,7 @@ const SocialLogin = () => {
             return res.data;
         }
     });
-    console.log(users);
+    // console.log(users);
 
     const handleGoogleLogin = () => {
         loginWithGoogle()

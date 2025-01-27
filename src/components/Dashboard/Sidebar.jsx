@@ -9,7 +9,7 @@ import StudentMenu from './Menu/StudentMenu';
 const Sidebar = () => {
     const [isActive, setActive] = useState(true);
     const [role] = useRole();
-    console.log(role);
+    // console.log(role);
     
 
     // Sidebar Responsive Handler

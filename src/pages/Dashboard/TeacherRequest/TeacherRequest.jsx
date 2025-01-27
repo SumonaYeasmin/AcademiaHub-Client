@@ -36,7 +36,8 @@ const TeacherRequest = () => {
         status: "Accepted",
         role: "Teacher",
       });
-      if (res.data.modifiedCount > 0) {
+      // console.log(res.data);
+      if (res.data.resultT.modifiedCount || res.data.resultU.modifiedCount > 0) {
         Swal.fire({
           position: "top",
           icon: "success",
@@ -57,12 +58,14 @@ const TeacherRequest = () => {
     }
   };
 
-  const handleReject = async (teacherId) => {
+  const handleReject = async (email) => {
     try {
-      const res = await axiosSecure.patch(`/teachers/reject/${teacherId}`, {
+      const res = await axiosSecure.patch(`/teachers/reject/${email}`, {
         status: "Rejected",
+        role: "Student",
       });
-      if (res.data.modifiedCount > 0) {
+      // console.log(res.data);
+      if (res.data.resultT.modifiedCount || res.data.resultU.modifiedCount > 0) {
         Swal.fire({
           position: "top",
           icon: "success",
@@ -148,18 +151,16 @@ const TeacherRequest = () => {
               <td>{teacher.category}</td>
               <td>
                 <button
-                  className={`${teacher.status === "Accepted" && "bg-green-200"} ${
-                    teacher.status === "Rejected" && "bg-red-300"
-                  } ${teacher.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}
+                  className={`${teacher.status === "Accepted" && "bg-green-200"} ${teacher.status === "Rejected" && "bg-red-300"
+                    } ${teacher.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}
                 >
                   {teacher.status}
                 </button>
               </td>
               <th className="flex gap-1">
                 <button
-                  className={`btn bg-green-400 ${
-                    teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
-                  }`}
+                  className={`btn bg-green-400 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
+                    }`}
                   onClick={() => handleApprove(teacher.email)}
                   disabled={teacher.status === "Rejected"}
                 >
@@ -167,7 +168,7 @@ const TeacherRequest = () => {
                 </button>
                 <button
                   className="btn bg-red-500"
-                  onClick={() => handleReject(teacher._id)}
+                  onClick={() => handleReject(teacher.email)}
                   disabled={teacher.status === "Rejected"}
                 >
                   Reject
@@ -186,42 +187,48 @@ const TeacherRequest = () => {
         </tbody>
       </table>
 
+
       {/* Pagination Controls */}
-      <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`btn mr-2 ${
-            currentPage === 1 ? "opacity-50 cursor-not-allowed" : "bg-teal-600 text-white"
-          }`}
-        >
-          Previous
-        </button>
-        <div className="flex space-x-2">
-          {Array.from({ length: totalPages }, (_, index) => (
+      {
+        currentItems.length > 0 ? <>
+          <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
             <button
-              key={index}
-              onClick={() => goToPage(index + 1)}
-              className={`btn ${
-                currentPage === index + 1 ? "bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"
-              }`}
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`btn mr-2 ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "bg-teal-600 text-white"
+                }`}
             >
-              {index + 1}
+              Previous
             </button>
-          ))}
-        </div>
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`btn ml-2 ${
-            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "bg-teal-600 text-white"
-          }`}
-        >
-          Next
-        </button>
-      </div>
+            <div className="flex space-x-2">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToPage(index + 1)}
+                  className={`btn ${currentPage === index + 1 ? "bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"
+                    }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`btn ml-2 ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "bg-teal-600 text-white"
+                }`}
+            >
+              Next
+            </button>
+          </div>
+        </> :
+          <h1 className="text-lg font-medium text-center my-10">No Teacher Request</h1>
+      }
     </div>
+
   );
 };
 
 export default TeacherRequest;
+
+

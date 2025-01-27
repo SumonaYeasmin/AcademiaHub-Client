@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import UseCount from "../../../../hooks/useCount";
@@ -17,12 +17,29 @@ const MyClassDetails = () => {
     const axiosSecure = useAxiosSecure();
     const { register, reset, handleSubmit, formState: { errors }, } = useForm();
     const [assignments, refetch] = UseCount()
+    console.log(assignments);
+    const location = useLocation();
+    // console.log(location);
+
+
+    const { data: assignmentSubmissions = [] } = useQuery({
+        queryKey: ["assignmentSubmissions"],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/assignments/total-submissions`);
+            console.log(res.data);
+            return res.data;
+        }
+
+    })
+
+
+
 
 
 
     const onSubmit = async (data) => {
-        console.log(data);
-        
+        // console.log(data);
+
 
         const assignmentInfo = {
             deadline: data.deadline,
@@ -66,7 +83,7 @@ const MyClassDetails = () => {
         queryKey: ['classes', id],
         queryFn: async () => {
             const response = await axiosSecure.get(`/classes/${id}`);
-            console.log(response.data);
+            // console.log(response.data);
             return response.data;
         },
 
@@ -95,7 +112,7 @@ const MyClassDetails = () => {
                     {/* Total Enrollments Card */}
                     <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center">
                         <h3 className="text-xl font-semibold text-gray-800 mb-4">Total Enrollments</h3>
-                        <p className="text-4xl text-gray-600">{classes.totalEnrolment}</p> {/* Placeholder for total enrollments */}
+                        <p className="text-4xl text-gray-600">{location?.state?.from}</p> {/* Placeholder for total enrollments */}
                     </div>
 
                     {/* Total Assignments Card */}
@@ -107,11 +124,12 @@ const MyClassDetails = () => {
                     {/* Total Submissions Card */}
                     <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center">
                         <h3 className="text-xl font-semibold text-gray-800 mb-4">Total Submissions</h3>
-                        <p className="text-4xl text-gray-600">0</p> {/* Placeholder for total submissions */}
+                        <p className="text-4xl text-gray-600">{assignmentSubmissions.total}</p> {/* Placeholder for total submissions */}
                     </div>
                 </div>
 
                 {/* Create Assignment Button */}
+                <h1 className="text-3xl font-semibold text-gray-800 text-center mt-16">Add Assignment</h1>
                 <div className="text-center mt-6">
                     <button onClick={() => setIsModalOpen(true)} class="btn btn-success rounded-full text-white text-base md:text-lg font-normal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-10 " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
@@ -192,5 +210,3 @@ const MyClassDetails = () => {
 };
 
 export default MyClassDetails;
-
-

@@ -115,13 +115,7 @@ const Checkout = ({ classItem }) => {
                 // console.log(res.data);
                 if (res.data.insertedId) {
                     handleEnrollSuccess();
-                    // Swal.fire({
-                    //     icon: 'success',
-                    //     title: "Congratulations!",
-                    //     text: ' You have successfully completed the payment..',
-                    //     showConfirmButton: false,
-                    //     timer: 2000,
-                    // });
+              
                     navigate('/dashboard/my-enroll-class')
                 }
             }

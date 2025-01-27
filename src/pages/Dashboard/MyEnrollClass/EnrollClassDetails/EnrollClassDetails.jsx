@@ -100,6 +100,23 @@ const EnrollClassDetails = () => {
   };
 
 
+  const handleAssignmentSubmit = async (id, e) => {
+    e.preventDefault();
+    const form = e.target;
+    console.log(id);
+    const res = await axiosSecure.patch(`/assignments/${id}`)
+    console.log(res.data);
+    if (res.data.modifiedCount > 0) {
+      console.log('Success');
+      Swal.fire({
+        title: 'Success',
+        text: 'Succefully submission this assignment',
+        icon: 'success'
+      })
+    }
+    form.reset();
+  }
+
 
   return (
     <div>
@@ -130,25 +147,56 @@ const EnrollClassDetails = () => {
             </thead>
             <tbody>
               {assignments.map((assignment) => (
-                <tr key={assignment.id} className="hover:bg-gray-50">
+                <tr key={assignment._id} className="hover:bg-gray-50">
                   <td className="px-4 py-2 border-b">{assignment.title}</td>
                   <td className="px-4 py-2 border-b">{assignment.description}</td>
                   <td className="px-4 py-2 border-b">{assignment.deadline}</td>
                   <td className="px-4 py-2 border-b">
                     <div className="flex items-center gap-2">
-                      <label className="cursor-pointer w-full">
-                        <textarea
-                          className="textarea textarea-bordered "
-                          rows="4"
-                          placeholder="Write your assignment here..."
-                        ></textarea>
-                      </label>
-                      <button
-
-                        className="px-4 py-1 text-white bg-blue-500 rounded hover:bg-blue-600"
+                      <form onSubmit={(e) => handleAssignmentSubmit(assignment._id, e)} className="flex items-center gap-2">
+                        <label className="cursor-pointer w-full">
+                          <textarea
+                            className="textarea textarea-bordered "
+                            rows="2"
+                            placeholder="Write your assignment here..."
+                            required
+                          ></textarea>
+                        </label>
+                        <button
+                          type="submit"
+                          className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                        >
+                          Submit
+                        </button>
+                      </form>
+                      {/* <form
+                        className="flex items-center gap-2"
+                        onSubmit={(e) => {
+                          e.preventDefault(); // Prevent default form submission
+                          const textareaValue = e.target.elements[0].value; // Access textarea value
+                          if (textareaValue.trim() === "") {
+                            alert("Please write something in the textarea before submitting!");
+                            return;
+                          }
+                          handleAssignmentSubmit(assignment._id);
+                        }}
                       >
-                        Submit
-                      </button>
+                        <label className="cursor-pointer w-full">
+                          <textarea
+                            className="textarea textarea-bordered"
+                            rows="2"
+                            placeholder="Write your assignment here..."
+                            required
+                          ></textarea>
+                        </label>
+                        <button
+                          type="submit"
+                          className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                        >
+                          Submit
+                        </button>
+                      </form> */}
+
                     </div>
                   </td>
                 </tr>
@@ -159,51 +207,53 @@ const EnrollClassDetails = () => {
       </div>
 
       {/* Modal for Teaching Evaluation Report */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
-            <h2 className="text-lg font-bold mb-4">Teaching Evaluation Report</h2>
-            {/* Form */}
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {/* Description Field */}
-              <textarea
-                className={`textarea textarea-bordered w-full mb-4 ${errors.description ? "border-red-500" : ""
-                  }`}
-                rows="4"
-                placeholder="Write your feedback..."
-                {...register("description", { required: "Feedback is required" })}
-              ></textarea>
-              {errors.description && (
-                <p className="text-red-500 text-sm">{errors.description.message}</p>
-              )}
+      {
+        isModalOpen && (
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
+              <h2 className="text-lg font-bold mb-4">Teaching Evaluation Report</h2>
+              {/* Form */}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {/* Description Field */}
+                <textarea
+                  className={`textarea textarea-bordered w-full  ${errors.description ? "border-red-500" : ""
+                    }`}
+                  rows="4"
+                  placeholder="Write your feedback..."
+                  {...register("description", { required: "Feedback is required" })}
+                ></textarea>
+                {errors.description && (
+                  <p className="text-red-500 text-sm">{errors.description.message}</p>
+                )}
 
-              {/* Rating Field */}
-              <div className="mb-4">
-                <p className="mb-2">Rate the Teacher:</p>
-                <ReactStars {...thirdExample} />
-              </div>
+                {/* Rating Field */}
+                <div className="mt-2">
+                  <p>Rate the Teacher:</p>
+                  <ReactStars {...thirdExample} />
+                </div>
 
-              {/* Buttons */}
-              <div className="flex justify-end gap-4">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="btn bg-gray-300 text-black hover:bg-gray-400"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="btn bg-blue-500 text-white hover:bg-blue-600"
-                >
-                  Send
-                </button>
-              </div>
-            </form>
+                {/* Buttons */}
+                <div className="flex justify-end gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="btn bg-gray-300 text-black hover:bg-gray-400"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn bg-blue-500 text-white hover:bg-blue-600"
+                  >
+                    Send
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )
+      }
+    </div >
   )
 };
 

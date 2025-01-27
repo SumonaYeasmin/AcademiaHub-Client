@@ -68,33 +68,39 @@ const MyEnrollClass = () => {
             </div>
 
             {/* Pagination Controls */}
-            <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
-                <button
-                    onClick={() => goToPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className={`btn mr-2 ${currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
-                >
-                    Previous
-                </button>
-                <div className="flex space-x-2">
-                    {Array.from({ length: totalPages }, (_, index) => (
+            {
+                currentItems.length > 0 ? <>
+                    <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
                         <button
-                            key={index}
-                            onClick={() => goToPage(index + 1)}
-                            className={`btn ${currentPage === index + 1 ? "bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"}`}
+                            onClick={() => goToPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className={`btn mr-2 ${currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
                         >
-                            {index + 1}
+                            Previous
                         </button>
-                    ))}
-                </div>
-                <button
-                    onClick={() => goToPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className={`btn ml-2 ${currentPage === totalPages ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
-                >
-                    Next
-                </button>
-            </div>
+                        <div className="flex space-x-2">
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => goToPage(index + 1)}
+                                    className={`btn ${currentPage === index + 1 ? "bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"}`}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))}
+                        </div>
+                        <button
+                            onClick={() => goToPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className={`btn ml-2 ${currentPage === totalPages ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </> :
+                    <h1 className="text-lg font-medium text-center text-red-500 my-10">No Class Enrolled</h1>
+            }
+
         </div>
     );
 };

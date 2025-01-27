@@ -158,6 +158,9 @@ const AllClass = () => {
       </div>
 
       {/* Pagination Controls */}
+      {
+        currentItems.length > 0? <>
+        
       <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
         <button
           onClick={() => goToPage(currentPage - 1)}
@@ -191,6 +194,8 @@ const AllClass = () => {
           Next
         </button>
       </div>
+        </>: <h1 className="text-lg font-medium text-center text-red-500 my-10">No Class Availalbed</h1>
+      }
     </div>
   );
 };

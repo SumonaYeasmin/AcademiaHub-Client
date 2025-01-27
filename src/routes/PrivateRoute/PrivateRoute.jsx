@@ -5,13 +5,15 @@ import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
+    if (loading) {
+        return <span className="loading loading-bars loading-lg"></span>
+    }
+
     if (user) {
         return children;
     }
-    if (loading) {
-        return <progress className="progress w-56" value="70" max="100"></progress>
-    }
-    return <Navigate to="/login"></Navigate>
+
+    return <Navigate to="/signIn"></Navigate>
 };
 
 export default PrivateRoute;
