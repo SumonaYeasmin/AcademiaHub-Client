@@ -7,7 +7,7 @@ Our platform is built with cutting-edge technologies to ensure seamless and secu
 ---
 
 ## 🌐 Live Website
-**[Visit EduManage Live](https://academia-hub-444ce.web.app/)**
+**[Visit AcadmiaHub Live](https://academia-hub-444ce.web.app/)**
 
 ---
 
