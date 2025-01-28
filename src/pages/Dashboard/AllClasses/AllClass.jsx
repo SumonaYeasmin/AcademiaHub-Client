@@ -82,7 +82,7 @@ const AllClass = () => {
   };
 
   const handleProgress = () => {
-    console.log("Progress button clicked");
+    // console.log("Progress button clicked");
   };
 
   return (

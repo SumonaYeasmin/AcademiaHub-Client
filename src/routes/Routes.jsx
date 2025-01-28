@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayouts from "../layouts/MainLayouts";
 import Home from "../pages/Home/Home/Home";
 import AllClasses from "../pages/AllClasses/AllClasses";
@@ -20,100 +20,99 @@ import MyEnrollClass from "../pages/Dashboard/MyEnrollClass/MyEnrollClass";
 import EnrollClassDetails from "../pages/Dashboard/MyEnrollClass/EnrollClassDetails/EnrollClassDetails";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
- const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayouts></MainLayouts>,
-      children:[
-        {
-            path: "/",
-            element: <Home />
-          },
-          {
-            path: "/allClasses",
-            element: <AllClasses></AllClasses>,
-          },
-          {
-            path: "/classes/:id",
-            element: <ClassDetails></ClassDetails>,
-          },
-          {
-            path: "/payment",
-            element: <Payment></Payment>,
-          },
-          {
-            path: "/teachOnAcademiaHub",
-            element: <PrivateRoute><TeachOnAcademiaHub></TeachOnAcademiaHub></PrivateRoute> ,
-            
-          },
-          {
-            path: "/signIn",
-            element: <Login />
-          },
-          {
-            path: "/register",
-            element: <Register></Register>
-          },
-          {
-            path: "*",
-            element: <ErrorPage></ErrorPage>
-          },
-      ]
-    },
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayouts></MainLayouts>,
+    children: [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "/allClasses",
+        element: <AllClasses></AllClasses>,
+      },
+      {
+        path: "/classes/:id",
+        element: <PrivateRoute><ClassDetails></ClassDetails></PrivateRoute>,
+      },
+      {
+        path: "/payment",
+        element: <PrivateRoute><Payment></Payment></PrivateRoute>,
+      },
+      {
+        path: "/teachOnAcademiaHub",
+        element: <PrivateRoute><TeachOnAcademiaHub></TeachOnAcademiaHub></PrivateRoute>,
 
-      // Dashboard
+      },
+      {
+        path: "/signIn",
+        element: <Login />
+      },
+      {
+        path: "/register",
+        element: <Register></Register>
+      },
+      {
+        path: "*",
+        element: <ErrorPage></ErrorPage>
+      },
+    ]
+  },
 
-    {
-        path: "/dashboard",
-        element:<Dashboard></Dashboard>,
-        children: [
-          {
-            path: '/dashboard/teacher-request',
-            element: <TeacherRequest></TeacherRequest>
-          },
-          {
-            path: '/dashboard/users',
-            element: <Users></Users>
-          },
-          {
-            path: '/dashboard/all-class',
-            element: <AllClass />
-          },
-          {
-            path: '/dashboard/profile',
-            element: <Profile></Profile>
-          },
+  // Dashboard
 
-           // Teacher Dashboard
-          {
-            path: '/dashboard/add-class',
-            element: <AddClass></AddClass>
-          },
-          {
-            path: '/dashboard/my-class',
-            element: <MyClass></MyClass>
-          },
-          {
-            path: '/dashboard/my-class/:id',
-            element: <MyClassDetails></MyClassDetails>
-          },
+  {
+    path: "/dashboard",
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    children: [
+      {
+        path: '/dashboard/teacher-request',
+        element: <TeacherRequest></TeacherRequest>
+      },
+      {
+        path: '/dashboard/users',
+        element: <Users></Users>
+      },
+      {
+        path: '/dashboard/all-class',
+        element: <AllClass />
+      },
+      {
+        path: '/dashboard/profile',
+        element: <Profile></Profile>
+      },
+
+      // Teacher Dashboard
+      {
+        path: '/dashboard/add-class',
+        element: <AddClass></AddClass>
+      },
+      {
+        path: '/dashboard/my-class',
+        element: <MyClass></MyClass>
+      },
+      {
+        path: '/dashboard/my-class/:id',
+        element: <MyClassDetails></MyClassDetails>
+      },
 
 
-          // Student Dashboard
-
-          {
-            path: '/dashboard/my-enroll-class',
-            element: <MyEnrollClass></MyEnrollClass>
-          },
-          {
-            path: '/dashboard/myenroll-class/:id',
-            element: <EnrollClassDetails></EnrollClassDetails>
-          },
-          {
-            path: '/dashboard/profile',
-            element: <Profile></Profile>
-          }
-        ]
-    }
-  ]);
-  export default router;
+      // Student Dashboard
+      {
+        path: '/dashboard/my-enroll-class',
+        element: <MyEnrollClass></MyEnrollClass>
+      },
+      {
+        path: '/dashboard/myenroll-class/:id',
+        element: <EnrollClassDetails></EnrollClassDetails>
+      },
+      {
+        path: '/dashboard/profile',
+        element: <Profile></Profile>
+      }
+    ]
+  }
+]);
+export default router;

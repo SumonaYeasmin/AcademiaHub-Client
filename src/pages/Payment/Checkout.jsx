@@ -8,7 +8,7 @@ import UseCount from '../../hooks/useCount';
 import { Helmet } from 'react-helmet-async';
 
 const Checkout = ({ classItem }) => {
-    console.log(classItem);
+    // console.log(classItem);
     const axiosSecure = useAxiosSecure();
     const stripe = useStripe();
     const elements = useElements();
@@ -23,7 +23,7 @@ const Checkout = ({ classItem }) => {
         if (price > 0) {
             axiosSecure.post('/create-payment-intent', { price: price })
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     setClientSecret(res.data.clientSecret);
                 });
         }
@@ -73,11 +73,11 @@ const Checkout = ({ classItem }) => {
         });
 
         if (error) {
-            console.log("Error", error);
+            // console.log("Error", error);
             setError(error.message);
         }
         else {
-            console.log("Payment Method", paymentMethod);
+            // console.log("Payment Method", paymentMethod);
             setError('')
         }
 
@@ -92,10 +92,10 @@ const Checkout = ({ classItem }) => {
         });
 
         if (confirmError) {
-            console.log("Confirm Error", confirmError);
+            // console.log("Confirm Error", confirmError);
         }
         else {
-            console.log("Pament Intent", paymentIntent);
+            // console.log("Pament Intent", paymentIntent);
             if (paymentIntent.status === 'succeeded') {
                 const paymentInfo = {
                     email: user.email,
@@ -124,7 +124,7 @@ const Checkout = ({ classItem }) => {
 
     return (
        
-        <div className="bg-gray-50 max-w-[600px] mx-auto p-4 md:p-8 rounded-lg shadow-lg mt-10">
+        <div className=" bg-gray-50 max-w-[600px] mx-auto p-4 md:p-8 rounded-lg shadow-lg mt-10">
              <Helmet>
                 <title>ChekOut || AcademiaHub</title>
              </Helmet>

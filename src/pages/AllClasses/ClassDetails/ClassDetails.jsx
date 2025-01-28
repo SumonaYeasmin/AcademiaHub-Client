@@ -5,14 +5,23 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 
 const ClassDetails = () => {
-    // const { id } = useParams();
+    const { id } = useParams();
     // console.log(id);
-    const location = useLocation();
+    // const location = useLocation();
     // console.log(location);
     const axiosSecure = useAxiosSecure();
 
-    const classDetails = location?.state?.from;
+    // const classDetails = location?.state?.from;
     // console.log(classDetails);
+
+    const { data: classDetails = [] } = useQuery({
+        queryKey: ['classDetails', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`classe/${id}`)
+            // console.log(res.data);
+            return res.data;
+        }
+    })
 
     if (!classDetails) {
         return (

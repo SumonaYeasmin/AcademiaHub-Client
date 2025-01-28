@@ -88,7 +88,7 @@ const EnrollClassDetails = () => {
       }
     }
     catch (error) {
-      console.log('Error', error);
+      // console.log('Error', error);
       Swal.fire({
         position: "top",
         icon: "error",
@@ -103,11 +103,11 @@ const EnrollClassDetails = () => {
   const handleAssignmentSubmit = async (id, e) => {
     e.preventDefault();
     const form = e.target;
-    console.log(id);
+    // console.log(id);
     const res = await axiosSecure.patch(`/assignments/${id}`)
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.modifiedCount > 0) {
-      console.log('Success');
+      // console.log('Success');
       Swal.fire({
         title: 'Success',
         text: 'Succefully submission this assignment',

@@ -17,7 +17,7 @@ const MyClassDetails = () => {
     const axiosSecure = useAxiosSecure();
     const { register, reset, handleSubmit, formState: { errors }, } = useForm();
     const [assignments, refetch] = UseCount()
-    console.log(assignments);
+    // console.log(assignments);
     const location = useLocation();
     // console.log(location);
 
@@ -26,7 +26,7 @@ const MyClassDetails = () => {
         queryKey: ["assignmentSubmissions"],
         queryFn: async () => {
             const res = await axiosSecure.get(`/assignments/total-submissions`);
-            console.log(res.data);
+            // console.log(res.data);
             return res.data;
         }
 

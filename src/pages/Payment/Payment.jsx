@@ -9,9 +9,9 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_Key)
 
 const Payment = () => {
     const location = useLocation();
-    console.log(location);
+    // console.log(location);
     return (
-        <div>
+        <div className='px-2'>
             <Elements stripe={stripePromise} >
                 <Checkout classItem={location?.state?.class} />
             </Elements>

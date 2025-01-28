@@ -113,79 +113,82 @@ const TeacherRequest = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div>
       <Helmet>
         <title>TeacherRequest || AcademiaHub</title>
       </Helmet>
 
-      <table className="table text-base">
-        {/* Table Header */}
-        <thead>
-          <tr className="text-lg">
-            <th>SI No</th>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Experience</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentItems.map((teacher, index) => (
-            <tr key={teacher._id}>
-              <th>{startIndex + index + 1}</th>
-              <td>{teacher.name}</td>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img src={teacher.photoURL} alt="img.." />
+      <div className="overflow-x-auto">
+
+        <table className="table text-base">
+          {/* Table Header */}
+          <thead>
+            <tr className="text-lg">
+              <th>SI No</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Experience</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentItems.map((teacher, index) => (
+              <tr key={teacher._id}>
+                <th>{startIndex + index + 1}</th>
+                <td>{teacher.name}</td>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img src={teacher.photoURL} alt="img.." />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td>{teacher.experience}</td>
-              <td>{teacher.title}</td>
-              <td>{teacher.category}</td>
-              <td>
-                <button
-                  className={`${teacher.status === "Accepted" && "bg-green-200"} ${teacher.status === "Rejected" && "bg-red-300"
-                    } ${teacher.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}
-                >
-                  {teacher.status}
-                </button>
-              </td>
-              <th className="flex gap-1">
-                <button
-                  className={`btn bg-green-400 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
-                    }`}
-                  onClick={() => handleApprove(teacher.email)}
-                  disabled={teacher.status === "Rejected"}
-                >
-                  Approve
-                </button>
-                <button
-                  className="btn bg-red-500"
-                  onClick={() => handleReject(teacher.email)}
-                  disabled={teacher.status === "Rejected"}
-                >
-                  Reject
-                </button>
-                {teacher.status === "Rejected" && (
+                </td>
+                <td>{teacher.experience}</td>
+                <td>{teacher.title}</td>
+                <td>{teacher.category}</td>
+                <td>
                   <button
-                    className="btn bg-blue-400"
-                    onClick={() => handleRequestAgain(teacher._id)}
+                    className={`${teacher.status === "Accepted" && "bg-green-200"} ${teacher.status === "Rejected" && "bg-red-300"
+                      } ${teacher.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}
                   >
-                    Request to Another
+                    {teacher.status}
                   </button>
-                )}
-              </th>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                </td>
+                <th className="flex gap-1">
+                  <button
+                    className={`btn bg-green-400 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
+                      }`}
+                    onClick={() => handleApprove(teacher.email)}
+                    disabled={teacher.status === "Rejected"}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className="btn bg-red-500"
+                    onClick={() => handleReject(teacher.email)}
+                    disabled={teacher.status === "Rejected"}
+                  >
+                    Reject
+                  </button>
+                  {teacher.status === "Rejected" && (
+                    <button
+                      className="btn bg-blue-400"
+                      onClick={() => handleRequestAgain(teacher._id)}
+                    >
+                      Request to Another
+                    </button>
+                  )}
+                </th>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
 
       {/* Pagination Controls */}

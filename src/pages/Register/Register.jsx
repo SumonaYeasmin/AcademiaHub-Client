@@ -33,12 +33,12 @@ const Register = () => {
 
         creatUser(data.email, data.password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
 
                 updateProfileInfo(data.name, data.photoUrl)
 
                     .then(() => {
-                        console.log("user profile info updated")
+                        // console.log("user profile info updated")
 
                         // creat user in the database
                         const userInfo = {
@@ -50,7 +50,7 @@ const Register = () => {
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    console.log("user added to the database");
+                                    // console.log("user added to the database");
                                     // form.reset();
                                     reset()
                                     Swal.fire({
