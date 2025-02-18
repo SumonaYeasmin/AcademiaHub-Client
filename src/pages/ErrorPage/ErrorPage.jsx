@@ -1,25 +1,18 @@
-import React from "react";
-
-import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
-  const navigate = useNavigate();
-
-  return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-100 text-center px-6">
-      <h1 className="text-6xl font-extrabold text-red-500">404</h1>
-      <p className="text-xl text-gray-700 mt-4">
-        Oops! The page you're looking for doesn't exist.
-      </p>
-      
-      <button
-        className="mt-6 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg"
-        onClick={() => navigate("/")}
-      >
-        Go to Home
-      </button>
-    </div>
-  );
+    return (
+        <div className="flex flex-col items-center justify-center h-screen text-center">
+            <Helmet>
+                <title>Error | AcademiaHub</title>
+            </Helmet>
+            <img className="h-2/4" src="https://i.ibb.co.com/jvtPRJrK/404-Error-rafiki-1.png" alt="" />
+            <Link to="/" className="text-xl -mt-10 text-teal-600 font-bold border border-teal-500 rounded-full px-4 py-1 hover:bg-teal-500 hover:text-white transition duration-300  bg-white ">
+            🔙 Go Back Home
+            </Link>
+        </div>
+    );
 };
 
 export default ErrorPage;
