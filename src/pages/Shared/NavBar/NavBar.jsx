@@ -1,14 +1,16 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import Swal from "sweetalert2";
-import { Tooltip } from "react-tooltip";
+
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 
 
 const Navbar = () => {
     const { user, userLogOut } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
 
     const handleLogOut = () => {
@@ -34,6 +36,26 @@ const Navbar = () => {
             })
     }
 
+    // Theme Loaded localStorage 
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            setIsDarkMode(true);
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            setIsDarkMode(false);
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    }, []);
+
+    // Theme Changes
+    const toggleTheme = () => {
+        const newTheme = !isDarkMode ? 'dark' : 'light';
+        setIsDarkMode(!isDarkMode);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
+
     const links = (
         <div className="lg:flex gap-3 text-base md:text-lg lg:text-sm 2xl:text-lg font-semibold">
             <li>
@@ -57,7 +79,18 @@ const Navbar = () => {
     return (
 
         <div className="sticky top-0 z-50 backdrop-blur-md bg-opacity-50 border-b">
-            <div className="navbar  container mx-auto">
+            <div className="navbar  container mx-auto px-4 md:px-2 relative">
+            <button
+                        onClick={toggleTheme}
+                        className={`w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-black shadow-md transition-transform transform hover:scale-110 absolute top-20 2xl:top-[85px] right-5`}
+                    >
+                        {isDarkMode ? (
+                            <MdOutlineLightMode size={24} />
+                        ) : (
+                            <MdOutlineDarkMode size={24} />
+                        )}
+                    </button>
+
                 <div className="navbar-start z-50">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
