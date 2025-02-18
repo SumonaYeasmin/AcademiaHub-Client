@@ -53,7 +53,7 @@ const CurrentlyPopular = () => {
             >
                 {topEnrollments.map((classItem) => (
                     <SwiperSlide key={classItem._id}>
-                         <div className="flex flex-col md:flex-row items-center bg-gradient-to-r from-blue-400 to-gray-200 p-3 rounded-lg shadow-md gap-x-16">
+                         <div className="flex flex-col md:flex-row items-center bg-gray-100 p-3 rounded-lg shadow-md gap-x-16 border">
                             <img
                                 src={classItem.photoURL}
                                 alt={classItem.title}

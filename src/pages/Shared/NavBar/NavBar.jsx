@@ -119,7 +119,7 @@ const Navbar = () => {
                 <div className="navbar-end z-50 gap-1">
                      <button
                         onClick={toggleTheme}
-                        className={`w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-black shadow-md transition-transform transform hover:scale-110`}
+                        className={`w-10 h-10 flex items-center justify-center rounded-full bg-teal-500 dark:bg-gray-700 text-black shadow-md transition-transform transform hover:scale-110`}
                     >
                         {isDarkMode ? (
                             <MdOutlineLightMode size={24} />
@@ -147,14 +147,14 @@ const Navbar = () => {
                                 </div>
                                 <ul
                                     tabIndex={0}
-                                    className="menu md:text-lg dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 shadow">
+                                    className="menu md:text-lg dropdown-content bg-white rounded-box z-[1] mt-3 w-52 shadow">
                                     <p className=" py-2 text-gray-700 font-bold cursor-default">
                                         {user?.displayName || 'Anonymous User'}
                                     </p>
                                     {/* <li> */}
-                                        <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-teal-500 text-base md:text-lg lg:text-sm 2xl:text-lg' : ''}>Dashboard</NavLink>
+                                        <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-teal-500 text-base md:text-lg lg:text-sm 2xl:text-lg text-black' : 'text-black'}>Dashboard</NavLink>
                                     {/* </li> */}
-                                    <button onClick={handleLogOut} className="py-1 my-1  bg-teal-500  hover:bg-teal-700 rounded-lg hover:text-gray-200 transform transition duration-300 font-semibold">Log out</button>
+                                    <button onClick={handleLogOut} className="py-1 my-1 text-black bg-teal-500  hover:bg-teal-700 rounded-lg hover:text-gray-200 transform transition duration-300 font-semibold">Log out</button>
                                 </ul>
                             </div>
                             :
