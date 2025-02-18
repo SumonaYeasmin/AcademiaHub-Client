@@ -38,7 +38,7 @@ const CurrentlyPopular = () => {
 
     return (
         <div className="container mx-auto p-4 my-10">
-            <h2 className="text-3xl md:text-4xl italic font-bold mb-8 text-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+            <h2 className="text-3xl md:text-4xl italic font-bold mb-5 text-center text-teal-700">
                 Currently Popular Classes
             </h2>
             <Swiper

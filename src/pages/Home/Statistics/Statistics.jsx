@@ -38,9 +38,9 @@ const Statistics = () => {
     return (
 
         <div>
-            <h1 className="text-3xl md:text-4xl text-center font-semibold text-teal-700 italic">Our Website Statistics</h1>
+            <h1 className="text-3xl md:text-4xl text-center font-semibold text-teal-700 italic ">Our Website Statistics</h1>
 
-        <div className="md:flex md:space-x-8 my-8 container mx-auto">
+        <div className="md:flex md:space-x-8 my-10 container mx-auto">
             
 
             {/* Left Section: Information Cards */}

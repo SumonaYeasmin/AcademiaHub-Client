@@ -90,7 +90,7 @@ const TeachOnAcademiaHub = () => {
         <title>TeachOnAcademiaHub || AcademiaHub</title>
       </Helmet>
       {userData.role === "Teacher" ? (
-        <div className="flex justify-center items-center container mx-auto my-10 p-2">
+        <div className="flex justify-center items-center container mx-auto my-10 p-2 ">
 
           <div className="bg-white rounded-lg shadow-md p-8 max-w-md text-center">
 
@@ -106,7 +106,7 @@ const TeachOnAcademiaHub = () => {
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md my-10"
+          className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mt-16"
         >
           <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
             Become a Teacher on Academia Hub
@@ -160,7 +160,7 @@ const TeachOnAcademiaHub = () => {
               {...register("experience", { required: true })}
 
               id="experience"
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-black bg-white"
 
             >
               <option disabled value="">
@@ -181,7 +181,7 @@ const TeachOnAcademiaHub = () => {
               {...register("title", { required: true })}
 
               id="title"
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-black bg-white"
 
             /> {errors.title && <span className="text-red-600">title is required</span>}
           </div>
@@ -192,7 +192,7 @@ const TeachOnAcademiaHub = () => {
               defaultValue=""
               {...register("category", { required: true })}
               id="category"
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-black bg-white"
 
             >
               <option disabled value="">

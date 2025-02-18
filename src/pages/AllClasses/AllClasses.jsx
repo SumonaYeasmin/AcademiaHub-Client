@@ -36,8 +36,8 @@ const AllClasses = () => {
             <Helmet>
                 <title>AllClasses || AcademiaHub</title>
             </Helmet>
-            <h1 className="text-2xl font-bold mb-4">Total Classes: {classes.length}</h1>
-            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            <h1 className="text-2xl font-bold mb-3 mt-10">Total Classes: {classes.length}</h1>
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 ">
                 {currentItems.map((classItem) => (
                     <div
                         key={classItem._id}
@@ -47,7 +47,7 @@ const AllClasses = () => {
                             alt="Class Image"
                             className="w-full h-52 md:h-72 object-cover rounded-lg"
                         />
-                        <div className="p-5">
+                        <div className="p-5 bg-white rounded-b-lg">
                             <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">{classItem.title}</h2>
                             <p className=" text-gray-600  text-lg font-medium">
                                 Posted by: <span className="font-medium italic">{classItem.name}</span>
@@ -80,11 +80,11 @@ const AllClasses = () => {
             {
                 currentItems.length > 0 ? <>
 
-                    <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
+                    <div className="flex justify-center items-center mt-6 border-2 bg-teal-400 ">
                         <button
                             onClick={() => goToPage(currentPage - 1)}
                             disabled={currentPage === 1}
-                            className={`btn mr-2 ${currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
+                            className={`px-4 py-3 rounded-lg mr-2 ${currentPage === 1 ? "cursor-not-allowed bg-teal-600 opacity-50 text-white" : "bg-teal-600 text-white border border-white"}`}
                         >
                             Previous
                         </button>
@@ -93,7 +93,7 @@ const AllClasses = () => {
                                 <button
                                     key={index}
                                     onClick={() => goToPage(index + 1)}
-                                    className={`btn ${currentPage === index + 1 ? " bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"}`}
+                                    className={`px-4 py-3 rounded-lg ${currentPage === index + 1 ? " bg-teal-600 text-white border border-white" : "bg-teal-600 text-white opacity-50"}`}
                                 >
                                     {index + 1}
                                 </button>
@@ -102,7 +102,7 @@ const AllClasses = () => {
                         <button
                             onClick={() => goToPage(currentPage + 1)}
                             disabled={currentPage === totalPages}
-                            className={`btn ml-2 ${currentPage === totalPages ? "cursor-not-allowed" : "bg-teal-600 text-white"}`}
+                            className={`px-4 py-3 rounded-lg ml-2 ${currentPage === totalPages ? "cursor-not-allowed bg-teal-600 text-white opacity-50" : "bg-teal-600 text-white border border-white"}`}
                         >
                             Next
                         </button>
