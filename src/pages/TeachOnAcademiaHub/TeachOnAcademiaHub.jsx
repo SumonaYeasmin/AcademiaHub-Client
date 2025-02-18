@@ -92,7 +92,7 @@ const TeachOnAcademiaHub = () => {
       {userData.role === "Teacher" ? (
         <div className="flex justify-center items-center container mx-auto my-10 p-2 ">
 
-          <div className="bg-white rounded-lg shadow-md p-8 max-w-md text-center">
+          <div className="bg-white rounded-lg shadow-md p-8 max-w-md text-center ">
 
             <h1 className="text-2xl font-bold text-gray-800 mb-4">
               Congratulations!
@@ -106,7 +106,7 @@ const TeachOnAcademiaHub = () => {
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mt-16"
+          className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md my-16 border"
         >
           <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
             Become a Teacher on Academia Hub
