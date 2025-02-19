@@ -92,7 +92,7 @@ const TeachOnAcademiaHub = () => {
       {userData.role === "Teacher" ? (
         <div className="flex justify-center items-center container mx-auto my-28 p-2 ">
 
-          <div className="bg-white rounded-lg shadow-md p-8 max-w-md text-center border border-2 ">
+          <div className="bg-white rounded-lg shadow-md p-8 max-w-md text-center  border-2 ">
 
             <h1 className="text-2xl md:text-3xl 2xl:text-4xl font-bold text-gray-800 mb-4">
               Congratulations!

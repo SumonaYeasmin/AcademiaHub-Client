@@ -84,12 +84,12 @@ const Register = () => {
 
 
     return (
-        <div className="flex flex-col justify-center my-20 bg-white shadow-lg rounded-lg p-8 max-w-md mx-auto">
+        <div className="flex flex-col justify-center my-20 bg-white shadow-lg rounded-lg p-8 max-w-md mx-auto border">
             <Helmet>
                 <title>Register | AcademiaHub</title>
             </Helmet>
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Register</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
 
                 {/* Name Field */}
                 <div>
@@ -142,7 +142,7 @@ const Register = () => {
                     )}
                 </div>
                 {/* Submit Button */}
-                <button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                <button className="w-full bg-gradient-to-r from-teal-500 to-teal-500 hover:from-teal-400 hover:to-teal-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
                 >Register </button>
 
                 {/* handle Google Login */}

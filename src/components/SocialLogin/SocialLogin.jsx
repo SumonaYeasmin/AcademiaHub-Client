@@ -80,7 +80,7 @@ const SocialLogin = () => {
     return (
         <div>
             <div className="text-center">
-                <button onClick={handleGoogleLogin} className="btn btn-wide text-base bg-gradient-to-r from-blue-500 to-green-500 text-white hover:from-green-500 hover:to-blue-500">
+                <button onClick={handleGoogleLogin} className="btn btn-wide text-base bg-gradient-to-r from-teal-500 via-teal-500 to-green-400 text-white hover:from-teal-500 hover:to-teal-700">
                     <FaGoogle className="text-white text-lg" />Continue with Google
                 </button>
             </div>

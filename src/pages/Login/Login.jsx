@@ -48,7 +48,7 @@ const Login = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center my-20 bg-white shadow-lg rounded-lg p-8 max-w-md mx-auto">
+        <div className="flex flex-col justify-center my-20 bg-white shadow-lg rounded-lg p-8 max-w-md mx-auto border">
             <Helmet>
                 <title>Login | AcademiaHub</title>
             </Helmet>
@@ -68,7 +68,7 @@ const Login = () => {
                 </div>
 
                 {/* Submit Button */}
-                <button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                <button className="w-full bg-gradient-to-r from-teal-500 to-teal-500 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
                 >Login </button>
                 <SocialLogin></SocialLogin>
             </form>
