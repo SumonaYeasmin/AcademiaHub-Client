@@ -90,14 +90,14 @@ const AllClass = () => {
       <Helmet>
         <title>AllClass || AcademiaHub</title>
       </Helmet>
-      <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-black">
         All Class List
       </h2>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto text-black">
         <table className="table w-full text-sm md:text-base">
           <thead>
-            <tr className="text-base md:text-lg">
+            <tr className="text-base md:text-lg text-black">
               <th>SI No</th>
               <th>Class Title</th>
               <th>Description</th>
@@ -129,21 +129,21 @@ const AllClass = () => {
                     <button
                       onClick={() => handleApprove(classItem._id)}
                       disabled={classItem.status === "Accepted"}
-                      className="btn btn-success"
+                      className="btn bg-green-400 hover:bg-green-600 rounded-md text-black"
                     >
                       Approve
                     </button>
                     <button
                       onClick={() => handleReject(classItem._id)}
                       disabled={classItem.status === "Rejected"}
-                      className="btn btn-error"
+                      className="btn btn-error "
                     >
                       Reject
                     </button>
                     <button
                       onClick={() => handleProgress(classItem._id)}
                       className={`btn ${
-                        classItem.status === "Accepted" && "btn-primary"
+                        classItem.status === "Accepted" && "btn-primary text-white"
                       }`}
                       disabled={classItem.status !== "Accepted"}
                     >
@@ -159,42 +159,44 @@ const AllClass = () => {
 
       {/* Pagination Controls */}
       {
-        currentItems.length > 0? <>
-        
-      <div className="flex justify-center items-center mt-6 border-2  bg-teal-400">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`btn mr-2 ${
-            currentPage === 1 ? "cursor-not-allowed" : "bg-teal-600 text-white"
-          }`}
-        >
-          Previous
-        </button>
-        <div className="flex space-x-2">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => goToPage(index + 1)}
-              className={`btn ${
-                currentPage === index + 1 ? "bg-teal-600 text-white" : "bg-teal-600 text-white opacity-50"
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`btn ml-2 ${
-            currentPage === totalPages ? "cursor-not-allowed" : "bg-teal-600 text-white"
-          }`}
-        >
-          Next
-        </button>
-      </div>
-        </>: <h1 className="text-lg font-medium text-center text-red-500 my-10">No Class Availalbed</h1>
+           
+            currentItems.length > 0 ? (
+              <div className="flex justify-center items-center mt-6 border-2 bg-teal-400  rounded-lg">
+                  <button
+                      onClick={() => goToPage(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className={`px-4 py-3 rounded-lg mr-2 ${
+                          currentPage === 1 ? "cursor-not-allowed bg-teal-600 opacity-50 text-white" : "bg-teal-600 text-white border border-white"
+                      }`}
+                  >
+                      Previous
+                  </button>
+                  <div className="flex space-x-2">
+                      {Array.from({ length: totalPages }, (_, index) => (
+                          <button
+                              key={index}
+                              onClick={() => goToPage(index + 1)}
+                              className={`px-4 py-3 rounded-lg ${
+                                  currentPage === index + 1 ? "bg-teal-600 text-white border border-white" : "bg-teal-500 text-white opacity-70"
+                              }`}
+                          >
+                              {index + 1}
+                          </button>
+                      ))}
+                  </div>
+                  <button
+                      onClick={() => goToPage(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className={`px-4 py-3 rounded-lg ml-2 ${
+                          currentPage === totalPages ? "cursor-not-allowed bg-teal-600 text-white opacity-50" : "bg-teal-600 text-white border border-white"
+                      }`}
+                  >
+                      Next
+                  </button>
+              </div>
+          ) : (
+              <h1 className="text-lg font-medium text-center text-red-500 my-10">No Class Available</h1>
+          )
       }
     </div>
   );

@@ -84,7 +84,7 @@ const Register = () => {
 
 
     return (
-        <div className="flex flex-col justify-center my-8 bg-white shadow-lg rounded-lg p-8 max-w-md mx-auto">
+        <div className="flex flex-col justify-center my-20 bg-white shadow-lg rounded-lg p-8 max-w-md mx-auto">
             <Helmet>
                 <title>Register | AcademiaHub</title>
             </Helmet>
@@ -96,7 +96,7 @@ const Register = () => {
                     <label htmlFor="name" className="block text-gray-700">
                         Name
                     </label>
-                    <input type="text" id="name" {...register("name", { required: true })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your name" />
+                    <input type="text" id="name" {...register("name", { required: true })} className="w-full px-4 py-2 text-black bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your name" />
                     {errors.name && <p className='text-red-600'>Name is required.</p>}
                 </div>
                 {/* Photo URL Field */}
@@ -104,7 +104,7 @@ const Register = () => {
                     <label htmlFor="photoURL" className="block text-gray-700">
                         Photo URL
                     </label>
-                    <input type="photoUrl" id="photoURL" {...register("photoUrl", { required: true })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your photo URL" />
+                    <input type="photoUrl" id="photoURL" {...register("photoUrl", { required: true })} className="w-full bg-white px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your photo URL" />
                     {errors.photoUrl && <p className='text-red-600'>Name is required.</p>}
                 </div>
 
@@ -113,7 +113,7 @@ const Register = () => {
                     <label htmlFor="email" className="block text-gray-700">
                         Email
                     </label>
-                    <input type="text" id="email" {...register("email", { required: true })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" />
+                    <input type="text" id="email" {...register("email", { required: true })} className="w-full px-4 py-2 text-black bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" />
                     {errors.email && <p className='text-red-600'>Name is required.</p>}
                 </div>
 
@@ -124,7 +124,7 @@ const Register = () => {
                     </label>
                     <input type={showPassword ? 'text' : 'password'} id="password"  {...register("password", {
                         required: true, minLength: 6, maxLength: 18, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,18}$/
-                    })} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your password" />
+                    })} className="w-full px-4 py-2 text-black bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your password" />
 
                     <a onClick={() => setShowPassword(!showPassword)} className="btn btn-xs absolute right-4 bottom-2">
                         {

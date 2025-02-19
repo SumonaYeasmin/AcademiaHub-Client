@@ -1,14 +1,14 @@
 const ContactUs = () => {
     return (
-      <div className="max-w-3xl mx-auto p-10 bg-gray-100 my-16 flex flex-col items-center">
-        <h1 className="text-4xl font-bold text-gray-800 mb-8">📞 Contact Us</h1>
+      <div className="max-w-3xl mx-auto p-3 md:p-10 bg-gray-100 my-16 border flex flex-col items-center">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">📞 Contact Us</h1>
   
         <div className="bg-white shadow-lg rounded-lg p-8 w-full md:w-3/4 lg:w-1/2 text-center">
           <p className="text-gray-600 text-lg">
             Have any questions? Feel free to reach out to us!
           </p>
   
-          <div className="mt-6 space-y-4 text-gray-700">
+          <div className="mt-6 space-y-2 md:space-y-4 text-gray-700">
             <p className="text-xl">
               📍 <strong>Address:</strong> 123 Learning Street, Education City, USA
             </p>

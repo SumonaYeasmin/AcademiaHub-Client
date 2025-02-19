@@ -20,7 +20,7 @@ const Sidebar = () => {
     return (
         <div>
             {/* Small Screen Navbar */}
-            <div className='bg-teal-200 text-gray-800 flex justify-between md:hidden'>
+            <div className='bg-teal-200 text-black flex justify-between md:hidden'>
                 <div>
                     <div className='block cursor-pointer p-2 font-bold'>
                         <Link to='/' className='flex items-center gap-3'>

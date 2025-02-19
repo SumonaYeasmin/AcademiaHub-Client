@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const StudentMenu = () => {
     return (
-        <div>
+        <div className="text-black">
              <li>
                 <NavLink to="/dashboard/my-enroll-class">
                 <MdFlightClass /> My enroll class</NavLink>

@@ -124,7 +124,7 @@ const EnrollClassDetails = () => {
         <title>EnrollClassDetails || AcademiaHub</title>
       </Helmet>
 
-      <div className="p-4">
+      <div className="p-4 ">
         <button
           onClick={() => setIsModalOpen(true)}
           className="btn bg-blue-500 text-white rounded-md hover:bg-blue-600"
@@ -137,7 +137,7 @@ const EnrollClassDetails = () => {
       <div className="p-4">
         <div className="overflow-x-auto">
           <table className="min-w-full table-auto border border-gray-200 rounded-md">
-            <thead className="bg-gray-100">
+            <thead className="bg-gray-100 text-black">
               <tr>
                 <th className="px-4 py-2 text-left border-b">Title</th>
                 <th className="px-4 py-2 text-left border-b">Description</th>
@@ -147,7 +147,7 @@ const EnrollClassDetails = () => {
             </thead>
             <tbody>
               {assignments.map((assignment) => (
-                <tr key={assignment._id} className="hover:bg-gray-50">
+                <tr key={assignment._id} className="hover:bg-gray-50 text-black">
                   <td className="px-4 py-2 border-b">{assignment.title}</td>
                   <td className="px-4 py-2 border-b">{assignment.description}</td>
                   <td className="px-4 py-2 border-b">{assignment.deadline}</td>

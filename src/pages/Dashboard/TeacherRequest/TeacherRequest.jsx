@@ -118,12 +118,12 @@ const TeacherRequest = () => {
         <title>TeacherRequest || AcademiaHub</title>
       </Helmet>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto text-black">
 
-        <table className="table text-base">
+        <table className="table text-base text-black">
           {/* Table Header */}
           <thead>
-            <tr className="text-lg">
+            <tr className="text-lg text-black">
               <th>SI No</th>
               <th>Name</th>
               <th>Image</th>
@@ -140,7 +140,7 @@ const TeacherRequest = () => {
                 <th>{startIndex + index + 1}</th>
                 <td>{teacher.name}</td>
                 <td>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 text-black">
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
                         <img src={teacher.photoURL} alt="img.." />
@@ -153,7 +153,7 @@ const TeacherRequest = () => {
                 <td>{teacher.category}</td>
                 <td>
                   <button
-                    className={`${teacher.status === "Accepted" && "bg-green-200"} ${teacher.status === "Rejected" && "bg-red-300"
+                    className={`text-black ${teacher.status === "Accepted" && "bg-green-200"} ${teacher.status === "Rejected" && "bg-red-300"
                       } ${teacher.status === "Pending" && "bg-yellow-200"} px-2 py-1 rounded-full`}
                   >
                     {teacher.status}
@@ -161,7 +161,7 @@ const TeacherRequest = () => {
                 </td>
                 <th className="flex gap-1">
                   <button
-                    className={`btn bg-green-400 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
+                    className={`btn bg-green-400 text-black hover:text-white hover:bg-green-700 ${teacher.status === "Accepted" && "cursor-not-allowed bg-opacity-30"
                       }`}
                     onClick={() => handleApprove(teacher.email)}
                     disabled={teacher.status === "Rejected"}
@@ -169,7 +169,7 @@ const TeacherRequest = () => {
                     Approve
                   </button>
                   <button
-                    className="btn bg-red-500"
+                    className="btn text-black bg-red-500 hover:bg-red-600 hover:text-white"
                     onClick={() => handleReject(teacher.email)}
                     disabled={teacher.status === "Rejected"}
                   >

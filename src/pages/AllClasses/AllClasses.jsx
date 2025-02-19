@@ -50,7 +50,7 @@ const AllClasses = () => {
                 <button
                     onClick={() => handleSortChange("asc")}
                     className={`px-4 py-2 rounded-lg border-2 transition-all ${
-                        sortOrder === "asc" ? "bg-blue-500 text-white border-blue-500" : "bg-white text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white"
+                        sortOrder === "asc" ? "bg-blue-500 text-white border-blue-500" : "bg-white text-black font-medium border-blue-500 hover:bg-blue-500 hover:text-white"
                     }`}
                 >
                     Sort by Price: Low to High
@@ -58,7 +58,7 @@ const AllClasses = () => {
                 <button
                     onClick={() => handleSortChange("desc")}
                     className={`px-4 py-2 rounded-lg border-2 transition-all ${
-                        sortOrder === "desc" ? "bg-blue-500 text-white border-blue-500" : "bg-white text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white"
+                        sortOrder === "desc" ? "bg-blue-500 text-white border-blue-500" : "bg-white text-black font-medium border-blue-500 hover:bg-blue-500 hover:text-white"
                     }`}
                 >
                     Sort by Price: High to Low

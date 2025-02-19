@@ -45,7 +45,7 @@ const Users = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 text-black">
       <Helmet>
         <title>Users || AcademiaHub</title>
       </Helmet>
@@ -53,7 +53,7 @@ const Users = () => {
       <div className="overflow-x-auto">
         <table className="table w-full text-sm md:text-base">
           <thead>
-            <tr className="text-base md:text-lg">
+            <tr className="text-base md:text-lg text-black">
               <th className="bg-gray-100">SI No</th>
               <th className="bg-gray-100">Image</th>
               <th className="bg-gray-100">User Name</th>
@@ -79,7 +79,7 @@ const Users = () => {
                 <td>
                   <button
                     disabled={user.role === "Admin"}
-                    className={`btn bg-green-400 ${
+                    className={`px-2 py-2 rounded-md bg-green-400 text-black hover:text-white hover:bg-green-700 ${
                       user.role === "Admin" && "cursor-not-allowed bg-opacity-50"
                     }`}
                     onClick={() => handleMakeAdmin(user)}

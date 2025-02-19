@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 const TeacherMenu = () => {
     return (
-        <>
+        <div className="text-black">
             
             <li>
                 <NavLink to="/dashboard/add-class">
@@ -20,7 +20,7 @@ const TeacherMenu = () => {
                 <NavLink to="/dashboard/profile">
                 <CgProfile />Profile</NavLink>
             </li>
-        </>
+        </div>
     );
 };
 

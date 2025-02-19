@@ -86,7 +86,7 @@ const Navbar = () => {
 
                 <div className="navbar-start z-50">
                     <div className="dropdown">
-                        <div tabIndex={0} role="button" className=" lg:hidden">
+                        <div tabIndex={0} role="button" className="text-black lg:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -110,7 +110,7 @@ const Navbar = () => {
                         <img
                             alt="Tailwind CSS Navbar component" className=" w-10 rounded-md "
                             src="https://i.ibb.co.com/0yM92pv/299519412-405499358350836-446553208076966245-n.jpg" />
-                        <p className="text-xl md:text-3xl">AcademiaHub</p>
+                        <p className="text-xl md:text-3xl text-black">AcademiaHub</p>
                     </div>
 
                 </div>

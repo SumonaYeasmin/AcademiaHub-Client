@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 const AdminMenu = () => {
     return (
-        <>
+        <div className='text-black'>
             <li>
                 <NavLink to="/dashboard/teacher-request">
                 <IoGitPullRequestSharp /> Teacher Request</NavLink>
@@ -25,7 +25,7 @@ const AdminMenu = () => {
                 <ImProfile /> profile</NavLink>
             </li>
            
-        </>
+            </div>
     );
 };
 

@@ -90,14 +90,14 @@ const TeachOnAcademiaHub = () => {
         <title>TeachOnAcademiaHub || AcademiaHub</title>
       </Helmet>
       {userData.role === "Teacher" ? (
-        <div className="flex justify-center items-center container mx-auto my-10 p-2 ">
+        <div className="flex justify-center items-center container mx-auto my-28 p-2 ">
 
-          <div className="bg-white rounded-lg shadow-md p-8 max-w-md text-center ">
+          <div className="bg-white rounded-lg shadow-md p-8 max-w-md text-center border border-2 ">
 
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+            <h1 className="text-2xl md:text-3xl 2xl:text-4xl font-bold text-gray-800 mb-4">
               Congratulations!
             </h1>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6 md:text-lg 2xl:text-xl">
               We are excited to have you onboard as part of our esteemed educators' community.
               Share your knowledge, inspire students, and make a difference in their learning journey!"
             </p>
