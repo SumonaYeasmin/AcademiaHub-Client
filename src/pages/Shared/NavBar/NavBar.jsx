@@ -63,6 +63,8 @@ const Navbar = () => {
 
             <NavLink to="/allClasses" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>All Classes</NavLink>
 
+            <NavLink to="/contactUs" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>Contact Us</NavLink>
+
             {
                 user && 
                 <>

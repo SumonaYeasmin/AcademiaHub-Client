@@ -21,6 +21,7 @@ import EnrollClassDetails from "../pages/Dashboard/MyEnrollClass/EnrollClassDeta
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import SuccessStoriesDetails from "../pages/Home/SuccessStories/SuccessStoriesDetails/SuccessStoriesDetails";
 import CommunityForum from "../pages/CommunityForm/CommunityForm";
+import ContactUs from "../pages/Home/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "/communityForm",
         element: <PrivateRoute><CommunityForum></CommunityForum></PrivateRoute>
+      },
+      {
+        path:"/contactUs",
+        element: <ContactUs></ContactUs>
       }
       // {
       //   path: "*",
