@@ -84,7 +84,7 @@ const Register = () => {
 
 
     return (
-        <div className="flex flex-col justify-center my-8 shadow-lg rounded-lg p-8 max-w-md mx-auto">
+        <div className="flex flex-col justify-center my-8 bg-white shadow-lg rounded-lg p-8 max-w-md mx-auto">
             <Helmet>
                 <title>Register | AcademiaHub</title>
             </Helmet>

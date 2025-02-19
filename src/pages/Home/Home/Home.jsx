@@ -8,6 +8,7 @@ import Feedback from "../Feedback/Feedback";
 import InspiresTeacher from "../InspiresTeacher/InspiresTeacher";
 import PartnersSection from "../PartnersSection/PartnersSection";
 import Statistics from "../Statistics/Statistics";
+import SuccessStories from "../SuccessStories/SuccessStories";
 
 const Home = () => {
 
@@ -28,6 +29,7 @@ const Home = () => {
        
    
           <Feedback></Feedback>
+          <SuccessStories></SuccessStories>
       
       </div>
       

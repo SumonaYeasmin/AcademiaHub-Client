@@ -58,17 +58,18 @@ const Navbar = () => {
 
     const links = (
         <div className="lg:flex gap-5 text-base md:text-lg  2xl:text-xl font-semibold items-center justify-center py-2">
-            {/* <li> */}
-                <NavLink to="/" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-1  block'}>Home</NavLink>
-            {/* </li> */}
-            {/* <li> */}
-                <NavLink to="/allClasses" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>All Classes</NavLink>
-            {/* </li> */}
+
+            <NavLink to="/" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-1  block'}>Home</NavLink>
+
+            <NavLink to="/allClasses" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>All Classes</NavLink>
+
             {
-                user &&
-                // <li>
+                user && 
+                <>
                     <NavLink to="/teachOnAcademiaHub" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-1 rounded py-1  font-semibold text-base md:text-lg 2xl:text-lg' : 'py-2  block'}>Teach On AcademiaHub</NavLink>
-                // </li>
+
+                    <NavLink to="/communityForm" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-1 rounded py-1  font-semibold text-base md:text-lg 2xl:text-lg' : 'py-2  block'}>CommunityForm</NavLink>
+                </>
             }
 
 
@@ -79,7 +80,7 @@ const Navbar = () => {
     return (
 
         <div className="sticky top-0 z-50 backdrop-blur-md bg-opacity-50 border-b border-teal-600 bg-teal-400">
-             <div className="navbar container mx-auto">
+            <div className="navbar container mx-auto">
 
                 <div className="navbar-start z-50">
                     <div className="dropdown">
@@ -117,7 +118,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end z-50 gap-1">
-                     <button
+                    <button
                         onClick={toggleTheme}
                         className={`w-10 h-10 flex items-center justify-center rounded-full bg-teal-500 dark:bg-gray-700 text-black shadow-md transition-transform transform hover:scale-110`}
                     >
@@ -152,7 +153,7 @@ const Navbar = () => {
                                         {user?.displayName || 'Anonymous User'}
                                     </p>
                                     {/* <li> */}
-                                        <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-teal-500 text-base md:text-lg lg:text-sm 2xl:text-lg text-black' : 'text-black'}>Dashboard</NavLink>
+                                    <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'bg-teal-500 text-base md:text-lg lg:text-sm 2xl:text-lg text-black' : 'text-black'}>Dashboard</NavLink>
                                     {/* </li> */}
                                     <button onClick={handleLogOut} className="py-1 my-1 text-black bg-teal-500  hover:bg-teal-700 rounded-lg hover:text-gray-200 transform transition duration-300 font-semibold">Log out</button>
                                 </ul>

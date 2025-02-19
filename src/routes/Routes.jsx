@@ -19,6 +19,8 @@ import Payment from "../pages/Payment/Payment";
 import MyEnrollClass from "../pages/Dashboard/MyEnrollClass/MyEnrollClass";
 import EnrollClassDetails from "../pages/Dashboard/MyEnrollClass/EnrollClassDetails/EnrollClassDetails";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import SuccessStoriesDetails from "../pages/Home/SuccessStories/SuccessStoriesDetails/SuccessStoriesDetails";
+import CommunityForum from "../pages/CommunityForm/CommunityForm";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,15 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>
       },
+
+      {
+        path: "/successStoriesDetails/:id",
+        element: <SuccessStoriesDetails></SuccessStoriesDetails>
+      },
+      {
+        path: "/communityForm",
+        element: <PrivateRoute><CommunityForum></CommunityForum></PrivateRoute>
+      }
       // {
       //   path: "*",
       //   element: <ErrorPage></ErrorPage>

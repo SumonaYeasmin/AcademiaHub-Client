@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 const InspiresTeacher = () => {
     return (
-        <div>
+   
             <section className="flex flex-wrap items-center justify-between p-10 bg-gradient-to-r from-blue-500 to-teal-500 text-white my-10">
                 {/* Left Side: Image */}
-                <div className="w-full md:w-1/2 mb-6 md:mb-0">
+                <div className="w-full md:w-1/2">
                     <img
                         src="https://i.ibb.co/Zh3X1r2/lovepik-business-mens-virtual-screen-show-action-picture-501787376.jpg"
                         alt="Teacher inspiring students"
@@ -29,7 +29,7 @@ const InspiresTeacher = () => {
                     </Link>
                 </div>
             </section>
-        </div>
+    
     );
 };
 
