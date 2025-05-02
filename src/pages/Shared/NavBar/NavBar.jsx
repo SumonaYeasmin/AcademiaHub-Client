@@ -58,14 +58,14 @@ const Navbar = () => {
 
 
     const links = (
-        <div className="lg:flex gap-5 text-base md:text-lg  2xl:text-xl font-semibold items-center justify-center py-2">
+        <div className="lg:flex gap-3 xl:gap-5 text-base md:text-lg  2xl:text-xl font-semibold items-center justify-center py-2 lg:ml-14  xl:ml-0">
             <NavLink
                 to="/"
-                onClick={() => document.activeElement?.blur()} className={({ isActive }) =>isActive ? 'bg-teal-500 text-black px-2 rounded py-1font-semibold text-base md:text-lg 2xl:text-lg': 'py-1 block'}>Home</NavLink>
+                onClick={() => document.activeElement?.blur()} className={({ isActive }) =>isActive ? 'bg-teal-500 text-black px-1 rounded py-1 font-semibold text-base md:text-lg 2xl:text-lg': 'py-1 block'}>Home</NavLink>
 
-            <NavLink to="/allClasses" onClick={() => document.activeElement?.blur()} className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>All Classes</NavLink>
+            <NavLink to="/allClasses" onClick={() => document.activeElement?.blur()} className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-1 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>All Classes</NavLink>
 
-            <NavLink to="/contactUs" onClick={() => document.activeElement?.blur()} className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>Contact Us</NavLink>
+            <NavLink to="/contactUs" onClick={() => document.activeElement?.blur()} className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-1 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>Contact Us</NavLink>
 
             {
                 user &&
@@ -111,7 +111,7 @@ const Navbar = () => {
                         <img
                             alt="Tailwind CSS Navbar component" className=" w-10 rounded-md "
                             src="https://i.ibb.co.com/0yM92pv/299519412-405499358350836-446553208076966245-n.jpg" />
-                        <p className="text-xl md:text-3xl text-black">AcademiaHub</p>
+                        <p className="text-xl md:text-3xl lg:text-2xl text-black">AcademiaHub</p>
                     </div>
 
                 </div>
