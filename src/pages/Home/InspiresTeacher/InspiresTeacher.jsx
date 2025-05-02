@@ -22,7 +22,7 @@ const InspiresTeacher = () => {
                     </p>
                     <Link to={'/teachOnAcademiaHub'}>
                         <button
-                            className="px-2 md:px-6 py-3 bg-teal-700  md:text-lg font-semibold rounded-lg transition duration-300 "
+                            className="px-2 md:px-6 py-3 bg-teal-700 md:text-lg font-semibold rounded-lg transition-transform duration-300 transform hover:scale-105 "
                         >
                             Become a Teacher Today!
                         </button>

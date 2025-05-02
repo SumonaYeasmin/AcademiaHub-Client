@@ -68,7 +68,7 @@ const Login = () => {
                 </div>
 
                 {/* Submit Button */}
-                <button className="w-full bg-gradient-to-r from-teal-500 to-teal-500 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                <button className="w-full bg-gradient-to-r from-teal-500 to-teal-500 hover:from-teal-400 hover:to-teal-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
                 >Login </button>
                 <SocialLogin></SocialLogin>
             </form>
