@@ -56,25 +56,25 @@ const Navbar = () => {
         localStorage.setItem('theme', newTheme);
     };
 
+
     const links = (
         <div className="lg:flex gap-5 text-base md:text-lg  2xl:text-xl font-semibold items-center justify-center py-2">
+            <NavLink
+                to="/"
+                onClick={() => document.activeElement?.blur()} className={({ isActive }) =>isActive ? 'bg-teal-500 text-black px-2 rounded py-1font-semibold text-base md:text-lg 2xl:text-lg': 'py-1 block'}>Home</NavLink>
 
-            <NavLink to="/" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-1  block'}>Home</NavLink>
+            <NavLink to="/allClasses" onClick={() => document.activeElement?.blur()} className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>All Classes</NavLink>
 
-            <NavLink to="/allClasses" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>All Classes</NavLink>
-
-            <NavLink to="/contactUs" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>Contact Us</NavLink>
+            <NavLink to="/contactUs" onClick={() => document.activeElement?.blur()} className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-2 rounded py-1 to-indigo-400 font-semibold text-base md:text-lg  2xl:text-lg' : 'py-2  block'}>Contact Us</NavLink>
 
             {
-                user && 
+                user &&
                 <>
-                    <NavLink to="/teachOnAcademiaHub" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-1 rounded py-1  font-semibold text-base md:text-lg 2xl:text-lg' : 'py-2  block'}>Teach On AcademiaHub</NavLink>
+                    <NavLink to="/teachOnAcademiaHub" onClick={() => document.activeElement?.blur()} className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-1 rounded py-1  font-semibold text-base md:text-lg 2xl:text-lg' : 'py-2  block'}>Teach On AcademiaHub</NavLink>
 
-                    <NavLink to="/communityForm" className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-1 rounded py-1  font-semibold text-base md:text-lg 2xl:text-lg' : 'py-2  block'}>CommunityForm</NavLink>
+                    <NavLink to="/communityForm" onClick={() => document.activeElement?.blur()} className={({ isActive }) => isActive ? 'bg-teal-500 text-black px-1 rounded py-1  font-semibold text-base md:text-lg 2xl:text-lg' : 'py-2  block'}>CommunityForm</NavLink>
                 </>
             }
-
-
 
         </div>
     );
@@ -86,7 +86,7 @@ const Navbar = () => {
 
                 <div className="navbar-start z-50">
                     <div className="dropdown">
-                        <div tabIndex={0} role="button" className="text-black lg:hidden">
+                        <label tabIndex={0} role="button" className="text-black lg:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -99,10 +99,11 @@ const Navbar = () => {
                                     strokeWidth="2"
                                     d="M4 6h16M4 12h8m-8 6h16" />
                             </svg>
-                        </div>
+                        </label>
+
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-6 w-56 px- shadow">
+                            className=" menu menu-sm dropdown-content bg-gray-100 rounded-box z-[1] mt-6 w-56">
                             {links}
                         </ul>
                     </div>
